@@ -12,17 +12,17 @@ class Set
     public $pieces;
     public $stock;
 
-    public static function findAll() //vindt alle blogs via deze statische functie net zoals gebruiker.php
+    public static function findAll()
     {
-        $conn = Database::start();
+        include 'database.php';
 
-        $sql = "SELECT * FROM sets"; //pakt alle sets
+        $sql = "SELECT * FROM sets";
         $result = $conn->query($sql);
 
         $sets = [];
 
         if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) { //stopt de sets in een array
+            while ($row = $result->fetch_assoc()) {
                 $set = new Set();
 
                 $set->id = $row["set_id"];
@@ -40,14 +40,16 @@ class Set
             }
         }
         $conn->close();
-        return $sets; //returnt de array
+        return $sets;
     }
 
-    public static function findById($id) //vindt een specifieke set via de id
+    public static function findById($id)
     {
-        $conn = Database::start();
+        include 'database.php';
 
-        $sql = "SELECT * FROM sets WHERE set_id = " . $id; //pakt de set met de id
+        $id = mysqli_real_escape_string($conn, $id);
+
+        $sql = "SELECT * FROM sets WHERE set_id = " . $id;
         $result = $conn->query($sql);
 
         $set = null;
@@ -59,8 +61,8 @@ class Set
                 $set->id = $row["set_id"];
                 $set->name = $row["set_name"];
                 $set->description = $row["set_description"];
-                $set->brandId = $row["set_brand_id"];
-                $set->themeId = $row["set_theme_id"];
+                $set->brandId = $row["brand_id"];
+                $set->themeId = $row["theme_id"];
                 $set->image = $row["set_image"];
                 $set->price = $row["set_price"];
                 $set->age = $row["set_age"];
@@ -69,12 +71,12 @@ class Set
             }
         }
         $conn->close();
-        return $set; //returnt de set met alle informatie
+        return $set;
     }
 
-    public function update() //update de set
+    public function update()
     {
-        $conn = Database::start();
+        include 'database.php';
 
         $id = mysqli_real_escape_string($conn, $this->id);
         $name = mysqli_real_escape_string($conn, $this->name);
@@ -91,28 +93,28 @@ class Set
             UPDATE
                 sets
             SET
-                set_name = '" . $name . "',
-                set_description = '" . $description . "',
-                set_brand_id = '" . $brandId . "',
-                set_theme_id = '" . $themeId . "',
-                set_image = '" . $image . "',
-                set_price = '" . $price . "',
-                set_age = '" . $age . "',
-                set_pieces = '" . $pieces . "',
-                set_stock = '" . $stock . "'
+                set_name = '$name',
+                set_description = '$description',
+                brand_id = '$brandId',
+                theme_id = '$themeId',
+                set_image = '$image',
+                set_price = '$price',
+                set_age = '$age',
+                set_pieces = '$pieces',
+                set_stock = '$stock'
             WHERE
-                set_id = " . $id . "
-        "; //verplaatst de oude informatie met de nieuwe
+                set_id = $id
+        ";
         $result = $conn->query($sql);
-        if (!$result) { //als er geen resultaat is dan error
+        if (!$result) {
             die("error" . $conn->error);
         }
         $conn->close();
     }
 
-    public function insert() //maak nieuwe set
+    public function insert()
     {
-        $conn = Database::start();
+        include 'database.php';
 
         $id = mysqli_real_escape_string($conn, $this->id);
         $name = mysqli_real_escape_string($conn, $this->name);
@@ -130,8 +132,8 @@ class Set
         set_name,
         set_image,
         set_description,
-        set_brand_id,
-        set_theme_id,
+        brand_id,
+        theme_id,
         set_price,
         set_age,
         set_pieces,
@@ -146,7 +148,7 @@ class Set
         '$price',
         '$age',
         '$pieces',
-        '$stock')"; //maakt de nieuwe set aan voor in de database
+        '$stock')";
 
         $result = $conn->query($sql);
         if (!$result) {
@@ -155,18 +157,18 @@ class Set
         $conn->close();
     }
 
-    public function delete() //verwijder de set
+    public function delete()
     {
-        $conn = Database::start();
+        include 'database.php';
 
-        $id = mysqli_real_escape_string($conn, $this->id); //veilig
+        $id = mysqli_real_escape_string($conn, $this->id);
 
         $sql = "
             DELETE FROM
                 sets
             WHERE
-                set_id = " . $id . "
-        "; //vindt de set via de id en verwijdert het van de database
+                set_id = $id
+        ";
         $result = $conn->query($sql);
         if (!$result) {
             die("error" . $conn->error);
