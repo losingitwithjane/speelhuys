@@ -72,7 +72,7 @@ class Set
         return $set; //returnt de set met alle informatie
     }
 
-    public function update() //update de blog
+    public function update() //update de set
     {
         $conn = Database::start();
 
@@ -99,7 +99,7 @@ class Set
                 set_price = '" . $price . "',
                 set_age = '" . $age . "',
                 set_pieces = '" . $pieces . "',
-                set_stock = '" . $stock . "'"
+                set_stock = '" . $stock . "'
             WHERE
                 set_id = " . $id . "
         "; //verplaatst de oude informatie met de nieuwe
@@ -110,28 +110,43 @@ class Set
         $conn->close();
     }
 
-    public function insert() //maak nieuwe blog
+    public function insert() //maak nieuwe set
     {
         $conn = Database::start();
 
         $id = mysqli_real_escape_string($conn, $this->id);
-        $titel = mysqli_real_escape_string($conn, $this->titel);
-        $afbeelding = mysqli_real_escape_string($conn, $this->afbeelding);
-        $inhoud = mysqli_real_escape_string($conn, $this->inhoud);
-        $auteur = mysqli_real_escape_string($conn, $this->auteur); //veilig
+        $name = mysqli_real_escape_string($conn, $this->name);
+        $description = mysqli_real_escape_string($conn, $this->description);
+        $brandId = mysqli_real_escape_string($conn, $this->brandId);
+        $themeId = mysqli_real_escape_string($conn, $this->themeId);
+        $image = mysqli_real_escape_string($conn, $this->image);
+        $price = mysqli_real_escape_string($conn, $this->price);
+        $age = mysqli_real_escape_string($conn, $this->age);
+        $pieces = mysqli_real_escape_string($conn, $this->pieces);
+        $stock = mysqli_real_escape_string($conn, $this->stock);
 
-        $sql = "INSERT INTO blogs
-        (blog_id,
-        blog_title,
-        blog_image,
-        blog_content,
-        blog_author) 
+        $sql = "INSERT INTO sets
+        (set_id,
+        set_name,
+        set_image,
+        set_description,
+        set_brand_id,
+        set_theme_id,
+        set_price,
+        set_age,
+        set_pieces,
+        set_stock)
         VALUES
         ('$id',
-        '$titel',
-        '$afbeelding',
-        '$inhoud',
-        '$auteur')"; //maakt de nieuwe blog aan voor in de database
+        '$name',
+        '$image',
+        '$description',
+        '$brandId',
+        '$themeId',
+        '$price',
+        '$age',
+        '$pieces',
+        '$stock')"; //maakt de nieuwe set aan voor in de database
 
         $result = $conn->query($sql);
         if (!$result) {
@@ -140,7 +155,7 @@ class Set
         $conn->close();
     }
 
-    public function delete() //verwijder de blog
+    public function delete() //verwijder de set
     {
         $conn = Database::start();
 
@@ -148,10 +163,10 @@ class Set
 
         $sql = "
             DELETE FROM
-                blogs
+                sets
             WHERE
-                blog_id = " . $id . "
-        "; //vindt de blog via de id en verwijdert het van de database
+                set_id = " . $id . "
+        "; //vindt de set via de id en verwijdert het van de database
         $result = $conn->query($sql);
         if (!$result) {
             die("error" . $conn->error);
