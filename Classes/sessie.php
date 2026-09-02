@@ -39,12 +39,12 @@ class Sessie
     {
         $conn = Database::start();
 
-        if (!isset($_COOKIE['keukenprins-session'])) {
+        if (!isset($_COOKIE['speelhuys-session'])) {
             $conn->close();
             return null;
         }
 
-        $session_key = mysqli_real_escape_string($conn, $_COOKIE['steptember-session']);
+        $session_key = mysqli_real_escape_string($conn, $_COOKIE['speelhuys-session']);
         $sql = "SELECT * FROM `sessions` WHERE session_key = '$session_key'";
         $result = $conn->query($sql);
 
