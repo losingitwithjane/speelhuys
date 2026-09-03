@@ -1,8 +1,8 @@
 <?php
-include "/../classes/database.php";
-include "/../classes/sessie.php";
-include "/../classes/gebruiker.php";
-include "/../classes/set.php";
+include __DIR__ . "/../classes/database.php";
+include __DIR__ . "/../classes/sessie.php";
+include __DIR__ . "/../classes/gebruiker.php";
+include __DIR__ . "/../classes/set.php";
 
 if (!isset($_GET["id"])) {
     header("Location: ../productpagina.php");
