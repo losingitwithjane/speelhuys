@@ -19,7 +19,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="productpagina.php">Producten</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Contact_page.php">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact_page.php">Contact</a></li>
                 </ul>
                 <div class="ms-3">
                     <a href="admin/inlog.php" class="btn btn-login">

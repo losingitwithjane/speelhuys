@@ -92,7 +92,7 @@ else if ($user->admin == Admin)
                                 <div class="d-flex justify-content-between mt-3 pt-2 border-top">
                                     <a href="edit.php?id=<?= $set->id; ?>"
                                         class="btn btn-sm btn-outline-primary">Aanpassen</a>
-                                    <a href="Delete.php?id=<?= $set->id; ?>"
+                                    <a href="delete.php?id=<?= $set->id; ?>"
                                         class="btn btn-sm btn-outline-danger">Verwijder</a>
                                 </div>
                             </div>
