@@ -5,7 +5,7 @@ include __DIR__ . '/../classes/gebruiker.php';
 
 $username = $_POST['username'] ?? '';
 $password = $_POST['password'] ?? '';
-$gebruiker = Gebruiker::findGebruiker($username, $password);
+$gebruiker = User::findByCredentials($username, $password);
 if ($username !== '' && $password !== '') {
     if ($gebruiker === null) 
     {
@@ -15,7 +15,7 @@ if ($username !== '' && $password !== '') {
     {
         $key = md5(uniqid(rand(), true));
         $session = new Sessie();
-        $session->session_user_id = $gebruiker->userid;
+        $session->session_user_id = $gebruiker->id;
         $session->session_key = $key;
         $session->session_start = date('Y-m-d H:i:s');
         $session->session_end = date('Y-m-d H:i:s', strtotime('+1 month'));
