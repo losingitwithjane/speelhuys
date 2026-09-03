@@ -72,7 +72,7 @@ class User
         $gebruikersnaam = mysqli_real_escape_string($conn, $gebruikersnaam);
         $wachtwoord = mysqli_real_escape_string($conn, $wachtwoord);
 
-        $sql = "SELECT * FROM users WHERE username = '$gebruikersnaam' AND password = '$wachtwoord'";
+        $sql = "SELECT * FROM users WHERE user_username = '$gebruikersnaam' AND user_password = '$wachtwoord'";
         $result = $conn->query($sql);
 
         $user = null;

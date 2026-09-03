@@ -1,15 +1,13 @@
 <?php
 class Database
 {
-    public static function start() //start functie om de database te starten
+    public static function start()
     {
         $dbServername = "127.0.0.1";
         $dbUsername = "root";
         $dbPassword = "mysql";
         $dbDatabase = "speelhuys";
 
-        // PHP 8 gooit een exception bij een mislukte verbinding, dus vangen we die
-        // op om daarna alsnog het wachtwoord te kunnen proberen.
         try {
             $conn = new mysqli($dbServername, $dbUsername, "", $dbDatabase);
         } catch (mysqli_sql_exception $e) {
