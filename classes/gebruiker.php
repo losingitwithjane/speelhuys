@@ -52,13 +52,13 @@ class User
             while ($row = $result->fetch_assoc()) {
                 $user = new User();
 
-                $user->id = $row["id"];
-                $user->voornaam = $row["firstname"];
-                $user->achternaam = $row["lastname"];
-                $user->email = $row["email"];
-                $user->gebruikersnaam = $row["username"];
-                $user->wachtwoord = $row["password"];
-                $user->rol = $row["role"];
+                $user->id = $row["user_id"];
+                $user->voornaam = $row["user_firstname"];
+                $user->achternaam = $row["user_lastname"];
+                $user->email = $row["user_email"];
+                $user->gebruikersnaam = $row["user_username"];
+                $user->wachtwoord = $row["user_password"];
+                $user->rol = $row["user_role"];
             }
         }
         $conn->close();
@@ -81,13 +81,13 @@ class User
             while ($row = $result->fetch_assoc()) {
                 $user = new User();
 
-                $user->id = $row["id"];
-                $user->voornaam = $row["firstname"];
-                $user->achternaam = $row["lastname"];
-                $user->email = $row["email"];
-                $user->gebruikersnaam = $row["username"];
-                $user->wachtwoord = $row["password"];
-                $user->rol = $row["role"];
+                $user->id = $row["user_id"];
+                $user->voornaam = $row["user_firstname"];
+                $user->achternaam = $row["user_lastname"];
+                $user->email = $row["user_email"];
+                $user->gebruikersnaam = $row["user_username"];
+                $user->wachtwoord = $row["user_password"];
+                $user->rol = $row["user_role"];
             }
         }
         $conn->close();
