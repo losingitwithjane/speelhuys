@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 03, 2026 at 12:23 PM
+-- Generation Time: Sep 03, 2026 at 01:52 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -59,9 +59,9 @@ INSERT INTO `brands` (`brand_id`, `brand_name`, `brand_logo`) VALUES
 --
 
 CREATE TABLE `sessions` (
-  `session_id` int(255) NOT NULL,
-  `session_user_id` int(255) NOT NULL,
-  `session_key` varchar(255) NOT NULL,
+  `session_id` int(11) NOT NULL,
+  `session_user_id` int(11) NOT NULL,
+  `session_key` varchar(50) NOT NULL,
   `session_start` date NOT NULL,
   `session_end` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -71,10 +71,17 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`session_id`, `session_user_id`, `session_key`, `session_start`, `session_end`) VALUES
-(0, 11, '667a2ea68e243cea8cc1bb9098bcbd54', '2026-09-03', '2026-10-03'),
-(0, 11, '6e746390782b8d5fed5e0afa2b618c98', '2026-09-03', '2026-10-03'),
-(0, 11, 'c2ae70df3698091e161ed00a1e7f08be', '2026-09-03', '2026-10-03'),
-(0, 11, 'dbaa4c317abed783a37cbf14e79b4ef7', '2026-09-03', '2026-10-03');
+(8, 1, '9c9e559716232677e728b0961c0975d8', '2026-06-18', '2026-07-18'),
+(9, 2, 'b6a185f7a5a5da0b090a8dd30ecdff63', '2026-06-18', '2026-07-18'),
+(10, 2, '763c411453503d49ba5697db4871962f', '2026-06-18', '2026-07-18'),
+(11, 4, 'e21cfbd538afd53a5d6be50a4e74f627', '2026-06-18', '2026-07-18'),
+(12, 11, 'f1867f2a896041e7086f18ed431fea9b', '2026-06-18', '2026-07-18'),
+(13, 11, 'ad8ac8ca6428b39f13023250e4aa15eb', '2026-06-18', '2026-07-18'),
+(14, 11, 'f4a9a04358e5685bb46e98860a5c5917', '2026-06-19', '2026-07-19'),
+(15, 11, '1ad5573a10a4518ff83cb4df3e75b6cf', '2026-06-19', '2026-07-19'),
+(16, 11, '5d7839a2d54545326c7110c3e5263495', '2026-06-19', '2026-07-19'),
+(17, 11, '8b1f1e7eedd6a9d65858770fe981af17', '2026-06-23', '2026-07-23'),
+(18, 11, '0a6ae861b8618827fae0e6c485feef99', '2026-09-02', '2026-10-02');
 
 -- --------------------------------------------------------
 
@@ -175,6 +182,12 @@ ALTER TABLE `brands`
   ADD PRIMARY KEY (`brand_id`);
 
 --
+-- Indexes for table `sessions`
+--
+ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`session_id`);
+
+--
 -- Indexes for table `sets`
 --
 ALTER TABLE `sets`
@@ -203,6 +216,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `brands`
   MODIFY `brand_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `sessions`
+--
+ALTER TABLE `sessions`
+  MODIFY `session_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `sets`
