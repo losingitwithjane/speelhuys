@@ -1,8 +1,8 @@
 <?php
-include "../Classes/database.php";
-include "../Classes/gebruiker.php";
-include "../Classes/sessie.php";
-include "../Classes/set.php";
+include __DIR__ . "/../classes/database.php";
+include __DIR__ . "/../classes/gebruiker.php";
+include __DIR__ . "/../classes/sessie.php";
+include __DIR__ . "/../classes/set.php";
 
 if (!isset($_COOKIE["speelhuys_sessie"])) { //als er geen sessie cookie is stuurt het de gebruiker terug
     header("Location: index.php?message=Geen cookie.");

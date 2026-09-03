@@ -7,7 +7,7 @@ class Brand
 
     public static function findAll()
     {
-        include 'database.php';
+        $conn = Database::start();
 
         $sql = "SELECT * FROM brands";
         $result = $conn->query($sql);
@@ -31,7 +31,7 @@ class Brand
 
     public static function findById($id)
     {
-        include 'database.php';
+        $conn = Database::start();
 
         $id = mysqli_real_escape_string($conn, $id);
 
@@ -55,7 +55,7 @@ class Brand
 
     public function insert()
     {
-        include 'database.php';
+        $conn = Database::start();
 
         $id = mysqli_real_escape_string($conn, $this->id);
         $name = mysqli_real_escape_string($conn, $this->name);
@@ -79,7 +79,7 @@ class Brand
 
     public function update()
     {
-        include 'database.php';
+        $conn = Database::start();
 
         $id = mysqli_real_escape_string($conn, $this->id);
         $name = mysqli_real_escape_string($conn, $this->name);
@@ -104,7 +104,7 @@ class Brand
 
     public function delete()
     {
-        include 'database.php';
+        $conn = Database::start();
 
         $id = mysqli_real_escape_string($conn, $this->id);
 

@@ -11,7 +11,7 @@ class User
 
     public static function findAll()
     {
-        include 'database.php';
+        $conn = Database::start();
 
         $sql = "SELECT * FROM users";
         $result = $conn->query($sql);
@@ -39,7 +39,7 @@ class User
 
     public static function findById($id)
     {
-        include 'database.php';
+        $conn = Database::start();
 
         $id = mysqli_real_escape_string($conn, $id);
 
@@ -67,7 +67,7 @@ class User
 
     public static function findByCredentials($gebruikersnaam, $wachtwoord)
     {
-        include 'database.php';
+        $conn = Database::start();
 
         $gebruikersnaam = mysqli_real_escape_string($conn, $gebruikersnaam);
         $wachtwoord = mysqli_real_escape_string($conn, $wachtwoord);
@@ -96,7 +96,7 @@ class User
 
     public function update()
     {
-        include 'database.php';
+        $conn = Database::start();
 
         $id = mysqli_real_escape_string($conn, $this->id);
         $voornaam = mysqli_real_escape_string($conn, $this->voornaam);
@@ -128,7 +128,7 @@ class User
 
     public function insert()
     {
-        include 'database.php';
+        $conn = Database::start();
 
         $id = mysqli_real_escape_string($conn, $this->id);
         $voornaam = mysqli_real_escape_string($conn, $this->voornaam);
@@ -164,7 +164,7 @@ class User
 
     public function delete()
     {
-        include 'database.php';
+        $conn = Database::start();
 
         $id = mysqli_real_escape_string($conn, $this->id);
 

@@ -1,7 +1,7 @@
 <?php
-include '/classes/database.php';
-include '/classes/sessie.php';
-include '/classes/gebruiker.php';
+include __DIR__ . '/../classes/database.php';
+include __DIR__ . '/../classes/sessie.php';
+include __DIR__ . '/../classes/gebruiker.php';
 
 $username = $_POST['username'] ?? '';
 $password = $_POST['password'] ?? '';

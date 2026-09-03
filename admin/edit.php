@@ -1,6 +1,6 @@
 <?php
+include __DIR__ . "/../classes/database.php";
 $conn = Database::start();
-include "Database.php"; 
 
 if (!isset($_GET["id"])) {
     header("Location: ../productpagina.php");

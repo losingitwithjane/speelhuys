@@ -6,7 +6,7 @@ class Theme
 
     public static function findAll()
     {
-        include 'database.php';
+        $conn = Database::start();
 
         $sql = "SELECT * FROM themes";
         $result = $conn->query($sql);
@@ -29,7 +29,7 @@ class Theme
 
     public static function findById($id)
     {
-        include 'database.php';
+        $conn = Database::start();
 
         $id = mysqli_real_escape_string($conn, $id);
 
@@ -52,7 +52,7 @@ class Theme
 
     public function insert()
     {
-        include 'database.php';
+        $conn = Database::start();
 
         $id = mysqli_real_escape_string($conn, $this->id);
         $name = mysqli_real_escape_string($conn, $this->name);
@@ -72,7 +72,7 @@ class Theme
     }
     public function update()
     {
-        include 'database.php';
+        $conn = Database::start();
 
         $id = mysqli_real_escape_string($conn, $this->id);
         $name = mysqli_real_escape_string($conn, $this->name);
@@ -95,7 +95,7 @@ class Theme
 
     public function delete()
     {
-        include 'database.php';
+        $conn = Database::start();
 
         $id = mysqli_real_escape_string($conn, $this->id);
 
@@ -115,7 +115,7 @@ class Theme
 
     public static function getThemeName($id)
     {
-        include 'database.php';
+        $conn = Database::start();
 
         $id = mysqli_real_escape_string($conn, $id);
         $sql = "SELECT theme_name FROM themes WHERE theme_id = $id";
