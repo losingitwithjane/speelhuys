@@ -53,7 +53,7 @@ if ($username !== '' && $password !== '') {
             <input type="text" name="username" placeholder="Username" value="" size="35" class="textbox" /><br>
             <input type="password" name="password" placeholder="Password" value="" size="35" class="textbox" /><br>
             <input type="submit" value="Inloggen" class="button" />
-            <div class="button a"> <a href="../index.php">Terug</a> </div>
+            <div class="button a"> <a href="index.php">Terug</a> </div>
         </form>
     </main>
 
