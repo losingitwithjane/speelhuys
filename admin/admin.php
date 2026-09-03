@@ -4,8 +4,8 @@ include __DIR__ . "/../classes/gebruiker.php";
 include __DIR__ . "/../classes/sessie.php";
 include __DIR__ . "/../classes/set.php";
 
-if (!isset($_COOKIE["speelhuys_sessie"])) { //als er geen sessie cookie is stuurt het de gebruiker terug
-    header("Location: index.php?message=Geen cookie.");
+if (!isset($_COOKIE["speelhuys-session"])) { //als er geen sessie cookie is stuurt het de gebruiker terug
+    header("Location: ../index.php?message=Geen cookie.");
     exit;
 }
 
@@ -37,10 +37,10 @@ $userId = $session->session_user_id; //pakt de user id en stopt het in userid
 $sets = Set::findAll(); //vindt alle sets
 $user = User::findById($userId); //zoekt de user via userid
 
-if ($user->admin == Employee) { //checkt of je admin bent
+if ($user->rol == "employee") { //checkt of je admin bent
     echo "employee";
 }
-else if ($user->admin == Admin)
+else if ($user->rol == "admin")
 {
         echo "admin";
 }

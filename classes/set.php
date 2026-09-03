@@ -28,8 +28,8 @@ class Set
                 $set->id = $row["set_id"];
                 $set->name = $row["set_name"];
                 $set->description = $row["set_description"];
-                $set->brandId = $row["brand_id"];
-                $set->themeId = $row["theme_id"];
+                $set->brandId = $row["set_brand_id"];
+                $set->themeId = $row["set_theme_id"];
                 $set->image = $row["set_image"];
                 $set->price = $row["set_price"];
                 $set->age = $row["set_age"];
@@ -61,8 +61,8 @@ class Set
                 $set->id = $row["set_id"];
                 $set->name = $row["set_name"];
                 $set->description = $row["set_description"];
-                $set->brandId = $row["brand_id"];
-                $set->themeId = $row["theme_id"];
+                $set->brandId = $row["set_brand_id"];
+                $set->themeId = $row["set_theme_id"];
                 $set->image = $row["set_image"];
                 $set->price = $row["set_price"];
                 $set->age = $row["set_age"];
@@ -95,8 +95,8 @@ class Set
             SET
                 set_name = '$name',
                 set_description = '$description',
-                brand_id = '$brandId',
-                theme_id = '$themeId',
+                set_brand_id = '$brandId',
+                set_theme_id = '$themeId',
                 set_image = '$image',
                 set_price = '$price',
                 set_age = '$age',
@@ -132,8 +132,8 @@ class Set
         set_name,
         set_image,
         set_description,
-        brand_id,
-        theme_id,
+        set_brand_id,
+        set_theme_id,
         set_price,
         set_age,
         set_pieces,

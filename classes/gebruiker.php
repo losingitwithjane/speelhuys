@@ -43,7 +43,7 @@ class User
 
         $id = mysqli_real_escape_string($conn, $id);
 
-        $sql = "SELECT * FROM users WHERE id = " . $id;
+        $sql = "SELECT * FROM users WHERE user_id = " . $id;
         $result = $conn->query($sql);
 
         $user = null;
