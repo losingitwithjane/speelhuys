@@ -40,9 +40,8 @@ $user = User::findById($userId); //zoekt de user via userid
 if ($user->rol == "employee") { //checkt of je admin bent
     echo "employee";
 }
-else if ($user->rol == "admin")
-{
-        echo "admin";
+else if ($user->rol == "admin") {
+    echo "admin";
 }
 ?>
 
