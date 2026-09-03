@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "Database.php"; 
+include "database.php"; 
 $conn = Database::start();
 if (!isset($_GET["id"])) {
     header("Location: ../productpagina.php");

@@ -1,5 +1,5 @@
 <?php
-include 'Database.php'; 
+include 'database.php'; 
 
 class Set
 {
