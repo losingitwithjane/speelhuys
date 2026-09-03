@@ -162,7 +162,7 @@ INSERT INTO `users` (`user_id`, `user_firstname`, `user_lastname`, `user_email`,
 (2, 'Ans', 'Jansen', 'ans@speelhuys.nl', 'ans', 'Z1Nm9Dj', 'admin'),
 (3, 'Sophia', 'Smith', 'sophia@speelhuys.nl', 'sophia', 'sd973Es', 'employee'),
 (4, 'Mia', 'Brown', 'mia@speelhuys.nl', 'noah', 'dj35dqdw', 'employee'),
-(11, '', '', '', 'test', 'test', 'standaard');
+(11, '', '', '', 'test', 'test', 'admin');
 
 --
 -- Indexes for dumped tables
