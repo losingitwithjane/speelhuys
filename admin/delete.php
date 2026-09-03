@@ -1,51 +1,45 @@
 <?php
-session_start();
-include __DIR__ . "/../classes/database.php";
-$conn = Database::start();
+include "/../classes/database.php";
+include "/../classes/sessie.php";
+include "/../classes/gebruiker.php";
+include "/../classes/set.php";
+
 if (!isset($_GET["id"])) {
-    header("Location: ../productpagina.php");
+    header("Location: ../productpagina.php?message=Geen set ID opgegeven.");
     exit;
 }
 
-$id = (int)$_GET["id"];
+$id = $_GET["id"];
 
-// Controleer of gebruiker ingelogd is
-if (!isset($_SESSION["user_id"])) {
-    header("Location: ../login_page.php");
+$conn = Database::start();
+$session = Sessie::findSession();
+$user = User::findById($session->session_user_id);
+$set = Set::findById($id);
+
+if ($session == null) {
+    header("Location: inlog.php?message=Geen actieve sessie.");
     exit;
 }
 
-// Haal gebruiker info op
-$user_id = (int)$_SESSION["user_id"];
-$result = mysqli_query($conn, "SELECT user_username, user_role FROM users WHERE user_id = $user_id");
-if (!$result || mysqli_num_rows($result) === 0) {
-    echo "Gebruiker niet gevonden.";
-    exit;
-}
-$user = mysqli_fetch_assoc($result);
-
-// Alleen 'joop' en 'ans' mogen verwijderen
-if (!in_array($user['user_username'], ['joop', 'ans'])) {
-    echo "Je hebt geen toestemming om sets te verwijderen.";
+if ($user->rol != "Admin"){    
+    header("Location: ../productpagina.php?message=Geen toestemming.");
     exit;
 }
 
-// Controleer of set bestaat
-$check = mysqli_query($conn, "SELECT * FROM sets WHERE set_id = $id");
-if (mysqli_num_rows($check) === 0) {
-    header("Location: ../productpagina.php?error=1");
+if ($set == null) {
+    header("Location: ../productpagina.php?message=Set niet gevonden.");
     exit;
 }
 
 // Verwijder na bevestiging
 if (isset($_POST["ja"])) {
-    mysqli_query($conn, "DELETE FROM sets WHERE set_id = $id");
-    header("Location: ../productpagina.php?deleted=1");
+    $set->delete();
+    header("Location: ../productpagina.php?message=Set succesvol verwijderd.");
     exit;
 }
 
 if (isset($_POST["nee"])) {
-    header("Location: ../productpagina.php");
+    header("Location: ../productpagina.php?message=Verwijderen geannuleerd.");
     exit;
 }
 ?>
