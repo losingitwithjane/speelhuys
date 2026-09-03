@@ -22,7 +22,7 @@
                     <li class="nav-item"><a class="nav-link" href="Contact_page.php">Contact</a></li>
                 </ul>
                 <div class="ms-3">
-                    <a href="login_page.php" class="btn btn-login">
+                    <a href="inlog.php" class="btn btn-login">
                         <i class="bi bi-box-arrow-in-right"></i> Inloggen
                     </a>
                 </div>
