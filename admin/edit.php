@@ -1,8 +1,8 @@
 <?php
-include   "/../classes/database.php";
-include   "/../classes/sessie.php";
-include  "/../classes/gebruiker.php";
-include  "/../classes/set.php";
+include   "../classes/database.php";
+include   "../classes/sessie.php";
+include  "../classes/gebruiker.php";
+include  "../classes/set.php";
 
 if (!isset($_GET["id"])) {
     header("Location: ../productpagina.php");
@@ -21,7 +21,7 @@ if ($session == null) {
 
 $userId = $session->session_user_id;
 
-$user = User::findById($userId ->session_user_id);
+$user = User::findById($userId);
 $set = Set::findById($id);
 
 if ($set == null) {
@@ -29,7 +29,7 @@ if ($set == null) {
     exit;
 }
 
-if ($user->rol != "Admin" || $user->rol != "Medewerker") {
+if ($user->rol != "medewerker" && $user->rol != "admin") {
     header("Location: ../productpagina.php?message=Geen toestemming.");
     exit;
 }
@@ -54,7 +54,7 @@ if (isset($_POST["set_name"]) || isset($_POST["set_description"]) || isset($_POS
     }
 
     $set->update();
-    header("Location: ../productpagina.php?message=Set succesvol aangepast.");
+    header("Location: admin.php?message=Set succesvol aangepast.");
     exit;
 }
 ?>
