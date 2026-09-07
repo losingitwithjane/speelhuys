@@ -77,7 +77,7 @@ else if ($user->rol == "admin") {
                     <div class="col-md-4 mb-4">
                         <div class="card h-100 mx-auto" style="max-width: 18rem;">
                             <div class="embed-responsive embed-responsive-1by1">
-                                <img src="../upload/<?= $set->image ?>" class="card-img-top embed-responsive-item" style="object-fit: cover;" alt="">
+                                <img src="../upload/sets/<?= $set->image ?>" class="card-img-top embed-responsive-item" style="object-fit: cover;" alt="">
                             </div>
 
                             <div class="card-body d-flex flex-column">
