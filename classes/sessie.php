@@ -31,6 +31,7 @@ class Sessie
         )";
 
         $conn->query($sql);
+        $conn->close();
     }
 
     // functie om de sessie te vinden in de database
