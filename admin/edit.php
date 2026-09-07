@@ -1,8 +1,8 @@
 <?php
-include __DIR__ . "/../classes/database.php";
-include __DIR__ . "/../classes/sessie.php";
-include __DIR__ . "/../classes/gebruiker.php";
-include __DIR__ . "/../classes/set.php";
+include   "/../classes/database.php";
+include   "/../classes/sessie.php";
+include  "/../classes/gebruiker.php";
+include  "/../classes/set.php";
 
 if (!isset($_GET["id"])) {
     header("Location: ../productpagina.php");
@@ -21,6 +21,7 @@ if ($session == null) {
 
 $userId = $session->session_user_id;
 
+$user = User::findById($userId ->session_user_id);
 $set = Set::findById($id);
 
 if ($set == null) {

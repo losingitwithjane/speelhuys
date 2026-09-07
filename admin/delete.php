@@ -1,8 +1,8 @@
 <?php
-include "/../classes/database.php";
-include "/../classes/sessie.php";
-include "/../classes/gebruiker.php";
-include "/../classes/set.php";
+include "../classes/database.php";
+include "../classes/sessie.php";
+include "../classes/gebruiker.php";
+include "../classes/set.php";
 
 if (!isset($_GET["id"])) {
     header("Location: ../productpagina.php?message=Geen set ID opgegeven.");
