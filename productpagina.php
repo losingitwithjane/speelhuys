@@ -142,7 +142,7 @@ if (isset($_GET['sort_pieces']) && $_GET['sort_pieces'] != '') {
                                 <h5><?= htmlspecialchars($set->name) ?></h5>
                                 <p class="text-muted small"><?php foreach ($brands as $brand) if ($brand->id == $set->brandId) echo htmlspecialchars($brand->name); ?></p>
                                 <p><?= htmlspecialchars(substr($set->description, 0, 80)) ?>...</p>
-                                 <a href="detailAdmin.php?id=<?= $set->id ?>"
+                                 <a href="detail.php?id=<?= $set->id ?>"
                                     class="btn btn-primary mt-auto btn-outline-warning">Detail</a>
                                 <p>
                                     <span class="badge bg-primary"><?= $set->age ?>+ jaar</span>
