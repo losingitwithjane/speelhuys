@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__ . '/../classes/database.php';
-require_once __DIR__ . '/../classes/set.php';
+include '../classes/database.php';
+include '../classes/set.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
