@@ -85,7 +85,7 @@ else if ($user->rol == "admin") {
                                 <div class="clamp-3">
                                     <?= $set->description ?>
                                 </div>
-                                <a href="detail.php?id=<?= $set->id ?>"
+                                <a href="../detail.php?id=<?= $set->id ?>"
                                     class="btn btn-primary mt-auto btn-outline-warning">Detail</a>
 
                                 <div class="d-flex justify-content-between mt-3 pt-2 border-top">
