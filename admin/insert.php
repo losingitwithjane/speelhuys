@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Navigatie -->
     <nav class="navbar navbar-expand-lg bg-white">
         <div class="container">
-            <a class="navbar-brand" href="index.php">Speel<span>huys</span></a>
+            <a class="navbar-brand" href="../index.php">Speel<span>huys</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <li class="nav-item"><a class="nav-link active" href="contact_page.php">Contact</a></li>
                 </ul>
                 <div class="ms-3">
-                    <a href="admin/inlog.php" class="btn btn-login">
+                    <a href="inlog.php" class="btn btn-login">
                         <i class="bi bi-box-arrow-in-right"></i> Inloggen
                     </a>
                 </div>
