@@ -62,7 +62,7 @@ else if ($user->rol == "admin") {
             <a href="../index.php" class="btn btn-danger btn-lg btn-outline-warning">
                 Ga terug
             </a>
-            <a href="insert.php" class="btn btn-warning btn-lg btn-outline-success">
+            <a href="../insert.php" class="btn btn-warning btn-lg btn-outline-success">
                 Insert
             </a>
         </div>
@@ -85,14 +85,17 @@ else if ($user->rol == "admin") {
                                 <div class="clamp-3">
                                     <?= $set->description ?>
                                 </div>
-                                <a href="../detail.php?id=<?= $set->id ?>"
+                                <a href="detail.php?id=<?= $set->id ?>"
                                     class="btn btn-primary mt-auto btn-outline-warning">Detail</a>
 
                                 <div class="d-flex justify-content-between mt-3 pt-2 border-top">
                                     <a href="edit.php?id=<?= $set->id; ?>"
                                         class="btn btn-sm btn-outline-primary">Aanpassen</a>
-                                    <a href="delete.php?id=<?= $set->id; ?>"
+                                           <?php if ($user->rol == "admin") { ?>
+                                        <a href="delete.php?id=<?= $set->id; ?>"
+                                
                                         class="btn btn-sm btn-outline-danger">Verwijder</a>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
