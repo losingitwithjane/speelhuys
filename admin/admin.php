@@ -62,7 +62,7 @@ else if ($user->rol == "admin") {
             <a href="../index.php" class="btn btn-danger btn-lg btn-outline-warning">
                 Ga terug
             </a>
-            <a href="../insert.php" class="btn btn-warning btn-lg btn-outline-success">
+            <a href="insert.php" class="btn btn-warning btn-lg btn-outline-success">
                 Insert
             </a>
         </div>

@@ -113,49 +113,46 @@ class Set
     }
 
     public function insert()
-    {
-        $conn = Database::start();
+{
+    $conn = Database::start();
 
-        $id = mysqli_real_escape_string($conn, $this->id);
-        $name = mysqli_real_escape_string($conn, $this->name);
-        $description = mysqli_real_escape_string($conn, $this->description);
-        $brandId = mysqli_real_escape_string($conn, $this->brandId);
-        $themeId = mysqli_real_escape_string($conn, $this->themeId);
-        $image = mysqli_real_escape_string($conn, $this->image);
-        $price = mysqli_real_escape_string($conn, $this->price);
-        $age = mysqli_real_escape_string($conn, $this->age);
-        $pieces = mysqli_real_escape_string($conn, $this->pieces);
-        $stock = mysqli_real_escape_string($conn, $this->stock);
+    $name = mysqli_real_escape_string($conn, $this->name);
+    $description = mysqli_real_escape_string($conn, $this->description);
+    $brandId = mysqli_real_escape_string($conn, $this->brandId);
+    $themeId = mysqli_real_escape_string($conn, $this->themeId);
+    $image = mysqli_real_escape_string($conn, $this->image);
+    $price = mysqli_real_escape_string($conn, $this->price);
+    $age = mysqli_real_escape_string($conn, $this->age);
+    $pieces = mysqli_real_escape_string($conn, $this->pieces);
+    $stock = mysqli_real_escape_string($conn, $this->stock);
 
-        $sql = "INSERT INTO sets
-        (set_id,
-        set_name,
-        set_image,
-        set_description,
-        set_brand_id,
-        set_theme_id,
-        set_price,
-        set_age,
-        set_pieces,
-        set_stock)
-        VALUES
-        ('$id',
-        '$name',
-        '$image',
-        '$description',
-        '$brandId',
-        '$themeId',
-        '$price',
-        '$age',
-        '$pieces',
-        '$stock')";
+    $sql = "INSERT INTO sets
+    (set_name,
+    set_image,
+    set_description,
+    set_brand_id,
+    set_theme_id,
+    set_price,
+    set_age,
+    set_pieces,
+    set_stock)
+    VALUES
+    ('$name',
+    '$image',
+    '$description',
+    '$brandId',
+    '$themeId',
+    '$price',
+    '$age',
+    '$pieces',
+    '$stock')";
 
-        $result = $conn->query($sql);
-        if (!$result) {
-            die("error" . $conn->error);
-        }
-        $conn->close();
+    $result = $conn->query($sql);
+    if (!$result) {
+        die("error" . $conn->error);
     }
+    $conn->close();
+}
 
     public function delete()
     {
