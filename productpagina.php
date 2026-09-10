@@ -5,12 +5,12 @@ include "classes/merk.php";
 include "classes/theme.php";
 $conn = Database::start();
 
-// Haal alle merken , sets  en thema's op voor de filters
+// Haal alle merken, sets en thema's op voor de filters
 $brands = Brand::findAll();
 $themes = Theme::findAll();
 $sets = Set::findAll();
 
-// sorteer op merk als er een brand_id is meegegeven
+// Filter op merk
 if (isset($_GET['brand_id']) && $_GET['brand_id'] != '') {
     $brandId = $_GET['brand_id'];
     $gefilterdeSets = [];
@@ -22,7 +22,7 @@ if (isset($_GET['brand_id']) && $_GET['brand_id'] != '') {
     $sets = $gefilterdeSets;
 }
 
-// sorteer op thema als er een set_theme is meegegeven
+// Filter op thema
 if (isset($_GET['set_theme']) && $_GET['set_theme'] != '') {
     $themeId = $_GET['set_theme'];
     $gefilterdeSets = [];
@@ -34,15 +34,42 @@ if (isset($_GET['set_theme']) && $_GET['set_theme'] != '') {
     $sets = $gefilterdeSets;
 }
 
-// Sorteer op aantal stukken
-if (isset($_GET['sort_pieces']) && $_GET['sort_pieces'] != '') {
-    usort($sets, function($a, $b) {
-        if ($_GET['sort_pieces'] == 'asc') {
-            return $a->pieces <=> $b->pieces;
-        } else {
-            return $b->pieces <=> $a->pieces;
+// Filter op prijs
+if (isset($_GET['price']) && $_GET['price'] != '') {
+    $price = $_GET['price'];
+    $gefilterdeSets = [];
+    foreach ($sets as $set) {
+        if ($price == '0-25' && $set->price < 25) $gefilterdeSets[] = $set;
+        elseif ($price == '25-50' && $set->price >= 25 && $set->price < 50) $gefilterdeSets[] = $set;
+        elseif ($price == '50-100' && $set->price >= 50 && $set->price < 100) $gefilterdeSets[] = $set;
+    }
+    $sets = $gefilterdeSets;
+}
+
+// Filter op leeftijd
+if (isset($_GET['age']) && $_GET['age'] != '') {
+    $age = $_GET['age'];
+    $gefilterdeSets = [];
+    foreach ($sets as $set) {
+        if ($set->age >= $age) {
+            $gefilterdeSets[] = $set;
         }
-    });
+    }
+    $sets = $gefilterdeSets;
+}
+
+// Filter op aantal stukken
+if (isset($_GET['pieces']) && $_GET['pieces'] != '') {
+    $pieces = $_GET['pieces'];
+    $gefilterdeSets = [];
+    foreach ($sets as $set) {
+        if ($pieces == '2-20' && $set->pieces >= 2 && $set->pieces <= 20) $gefilterdeSets[] = $set;
+        elseif ($pieces == '20-80' && $set->pieces > 20 && $set->pieces <= 80) $gefilterdeSets[] = $set;
+        elseif ($pieces == '80-151' && $set->pieces > 80 && $set->pieces <= 151) $gefilterdeSets[] = $set;
+        elseif ($pieces == '151-300' && $set->pieces > 151 && $set->pieces <= 300) $gefilterdeSets[] = $set;
+        elseif ($pieces == '300+' && $set->pieces > 300) $gefilterdeSets[] = $set;
+    }
+    $sets = $gefilterdeSets;
 }
 ?>
 
@@ -58,7 +85,7 @@ if (isset($_GET['sort_pieces']) && $_GET['sort_pieces'] != '') {
 <body>
     <nav class="navbar navbar-expand-lg bg-white">
         <div class="container">
-            <a class="navbar-brand" href="home.php">Speel<span>huys</span></a>
+            <a class="navbar-brand" href="index.php">Speel<span>huys</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -67,12 +94,9 @@ if (isset($_GET['sort_pieces']) && $_GET['sort_pieces'] != '') {
                     <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="productpagina.php">Producten</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact_page.php">Contact</a></li>
-                    
                 </ul>
                 <div class="ms-3">
-                    <a href="admin/inlog.php" class="btn btn-login">
-                        <i class="bi bi-box-arrow-in-right"></i> Inloggen
-                    </a>
+                    <a href="admin/inlog.php" class="btn btn-login">Inloggen</a>
                 </div>
             </div>
         </div>
@@ -82,8 +106,8 @@ if (isset($_GET['sort_pieces']) && $_GET['sort_pieces'] != '') {
     <div class="container mt-4">
         <div class="card p-4">
             <form method="GET" class="row g-3">
-                <!-- merk Filter -->
-                <div class="col-md-4">
+                <!-- Merk Filter -->
+                <div class="col-md-2">
                     <label for="brand_id" class="form-label">Merk</label>
                     <select name="brand_id" id="brand_id" class="form-select">
                         <option value="">Alle Merken</option>
@@ -95,8 +119,8 @@ if (isset($_GET['sort_pieces']) && $_GET['sort_pieces'] != '') {
                     </select>
                 </div>
 
-                <!-- themas Filter -->
-                <div class="col-md-4">
+                <!-- Thema Filter -->
+                <div class="col-md-2">
                     <label for="set_theme" class="form-label">Thema</label>
                     <select name="set_theme" id="set_theme" class="form-select">
                         <option value="">Alle Thema's</option>
@@ -108,24 +132,51 @@ if (isset($_GET['sort_pieces']) && $_GET['sort_pieces'] != '') {
                     </select>
                 </div>
 
-                <!-- stukjes Filter -->
-                <div class="col-md-3">
-                    <label for="sort_pieces" class="form-label">Aantal Stukken</label>
-                    <select name="sort_pieces" id="sort_pieces" class="form-select">
-                        <option value="">Geen sorteer</option>
-                        <option value="asc" <?= (isset($_GET['sort_pieces']) && $_GET['sort_pieces'] == 'asc') ? 'selected' : '' ?>>Van klein naar groot</option>
-                        <option value="desc" <?= (isset($_GET['sort_pieces']) && $_GET['sort_pieces'] == 'desc') ? 'selected' : '' ?>>Van groot naar klein</option>
+                <!-- Prijs Filter -->
+                <div class="col-md-2">
+                    <label for="price" class="form-label">Prijs</label>
+                    <select name="price" id="price" class="form-select">
+                        <option value="">Alle Prijzen</option>
+                        <option value="0-25" <?= (isset($_GET['price']) && $_GET['price'] == '0-25') ? 'selected' : '' ?>>€0 - €25</option>
+                        <option value="25-50" <?= (isset($_GET['price']) && $_GET['price'] == '25-50') ? 'selected' : '' ?>>€25 - €50</option>
+                        <option value="50-100" <?= (isset($_GET['price']) && $_GET['price'] == '50-100') ? 'selected' : '' ?>>€50 - €100</option>
+                </div>
+
+                <!-- Leeftijd Filter -->
+                <div class="col-md-2">
+                    <label for="age" class="form-label">Leeftijd</label>
+                    <select name="age" id="age" class="form-select">
+                        <option value="">Alle Leeftijden</option>
+                        <option value="1" <?= (isset($_GET['age']) && $_GET['age'] == '1') ? 'selected' : '' ?>>1+ jaar</option>
+                        <option value="2" <?= (isset($_GET['age']) && $_GET['age'] == '2') ? 'selected' : '' ?>>2+ jaar</option>
+                        <option value="3" <?= (isset($_GET['age']) && $_GET['age'] == '3') ? 'selected' : '' ?>>3+ jaar</option>
+                        <option value="4" <?= (isset($_GET['age']) && $_GET['age'] == '4') ? 'selected' : '' ?>>4+ jaar</option>
+                        <option value="6" <?= (isset($_GET['age']) && $_GET['age'] == '6') ? 'selected' : '' ?>>6+ jaar</option>
+                        <option value="7" <?= (isset($_GET['age']) && $_GET['age'] == '7') ? 'selected' : '' ?>>7+ jaar</option>
+                        <option value="8" <?= (isset($_GET['age']) && $_GET['age'] == '8') ? 'selected' : '' ?>>8+ jaar</option>
+                    </select>
+                </div>
+
+                <!-- Stukken Filter -->
+                <div class="col-md-2">
+                    <label for="pieces" class="form-label">Stukken</label>
+                    <select name="pieces" id="pieces" class="form-select">
+                        <option value="">Alle Aantallen</option>
+                        <option value="2-20" <?= (isset($_GET['pieces']) && $_GET['pieces'] == '2-20') ? 'selected' : '' ?>>2 - 20 stukken</option>
+                        <option value="20-80" <?= (isset($_GET['pieces']) && $_GET['pieces'] == '20-80') ? 'selected' : '' ?>>20 - 80 stukken</option>
+                        <option value="80-151" <?= (isset($_GET['pieces']) && $_GET['pieces'] == '80-151') ? 'selected' : '' ?>>80 - 151 stukken</option>
+                        <option value="151-300" <?= (isset($_GET['pieces']) && $_GET['pieces'] == '151-300') ? 'selected' : '' ?>>151 - 300 stukken</option>
+                        <option value="300+" <?= (isset($_GET['pieces']) && $_GET['pieces'] == '300+') ? 'selected' : '' ?>>300+ stukken</option>
                     </select>
                 </div>
 
                 <!-- Filter Button -->
-                <div class="col-md-1 d-flex align-items-end">
+                <div class="col-md-2 d-flex align-items-end">
                     <button type="submit" class="btn btn-primary w-100">Filter</button>
                 </div>
             </form>
         </div>
     </div>
-
 
     <!-- Producten -->
     <div class="container mt-3">
@@ -142,9 +193,8 @@ if (isset($_GET['sort_pieces']) && $_GET['sort_pieces'] != '') {
                                 <h5><?= htmlspecialchars($set->name) ?></h5>
                                 <p class="text-muted small"><?php foreach ($brands as $brand) if ($brand->id == $set->brandId) echo htmlspecialchars($brand->name); ?></p>
                                 <p><?= htmlspecialchars(substr($set->description, 0, 80)) ?>...</p>
-                                 <a href="detail.php?id=<?= $set->id ?>"
-                                    class="btn btn-primary mt-auto btn-outline-warning">Detail</a>
-                                <p>
+                                <a href="detail.php?id=<?= $set->id ?>" class="btn btn-primary mt-auto btn-outline-warning">Detail</a>
+                                <p class="mt-2">
                                     <span class="badge bg-primary"><?= $set->age ?>+ jaar</span>
                                     <span class="badge bg-secondary"><?= $set->pieces ?> stukjes</span>
                                 </p>
@@ -156,7 +206,9 @@ if (isset($_GET['sort_pieces']) && $_GET['sort_pieces'] != '') {
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
-                <div class="col-12"><div class="alert alert-info">Geen producten gevonden. <a href="productpagina.php">Bekijk alle producten</a></div></div>
+                <div class="col-12">    
+                    <p class="text-center">Geen sets gevonden met de geselecteerde filters.</p>
+                </div>
             <?php endif; ?>
         </div>
     </div>
