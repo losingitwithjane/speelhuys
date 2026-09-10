@@ -111,13 +111,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="mb-3">
-                <label for="brandId" class="form-label">Merk ID</label>
-                <input type="number" class="form-control" name="brandId" id="brandId">
+                <label for="brandId" class="form-label">Merk</label>
+                 <select class="form-control" name="brandId" id="brandId">
+                    <option value="1">LEGO</option>
+                    <option value="2">Kapla</option>
+                    <option value="3">Duplo</option>
+                    <option value="4">RoboTime</option>
+                    <option value="5">SmartMax</option>
+                    <option value="6">Brio</option>
+                    <option value="7">Playmobil</option>
+                    <option value="8">MegaBloks</option>
+                    <option value="9">MegaConstrux</option>
+                    <option value="10">Geomag</option>
+                    <option value="11">KNEX</option>
+                    <option value="12">GraviTax</option>
+                    <option value="13">Clementoni</option>
+                </select>
             </div>
 
             <div class="mb-3">
-                <label for="themeId" class="form-label">Thema ID</label>
-                <input type="number" class="form-control" name="themeId" id="themeId">
+                <label for="themeId" class="form-label">Thema</label>
+                <select class="form-control" name="themeId" id="themeId">
+                    <option value="1">Lego City</option>
+                    <option value="2">Lego Marvel</option>
+                    <option value="3">Lego Architecture</option>
+                </select>
             </div>
 
             <div class="mb-3">
