@@ -84,8 +84,6 @@ $randomSet = Set::findRandom();
                              alt="<?= htmlspecialchars($randomSet->name) ?>"
                              class="img-fluid about-image">
                         <p class="text-center text-muted mt-2 mb-0">
-                            <i class="bi bi-dice-5"></i>
-                            Uit ons assortiment:
                             <a href="detail.php?id=<?= $randomSet->id ?>">
                                 <?= htmlspecialchars($randomSet->name) ?>
                             </a>

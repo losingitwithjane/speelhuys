@@ -223,6 +223,77 @@ body {
     color: var(--teal-900);
 }
 
+/* ---------- Productpagina ---------- */
+.filter-card {
+    background: white;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 2px 15px var(--shadow);
+}
+.filter-card .form-label {
+    color: var(--teal-900);
+    font-weight: 600;
+}
+.form-select:focus {
+    border-color: var(--teal-500);
+    box-shadow: 0 0 0 0.2rem rgba(47, 158, 143, 0.25);
+}
+
+.product-card {
+    background: white;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 2px 15px var(--shadow);
+    height: 100%;
+    transition: transform 0.3s;
+}
+.product-card:hover {
+    transform: translateY(-5px);
+}
+.product-card h5 {
+    color: var(--teal-900);
+    font-weight: 700;
+}
+.product-card .prijs {
+    color: var(--teal-700);
+    font-weight: 700;
+}
+
+/* Knoppen in dezelfde teal-familie als de rest van de site */
+.btn-teal {
+    background: var(--teal-700);
+    color: white;
+    font-weight: 600;
+}
+.btn-teal:hover {
+    background: var(--teal-600);
+    color: white;
+}
+.btn-teal-outline {
+    background: transparent;
+    border: 2px solid var(--teal-700);
+    color: var(--teal-700);
+    font-weight: 600;
+}
+.btn-teal-outline:hover {
+    background: var(--teal-700);
+    color: white;
+}
+
+/* Labels: teal voor info, gedempt grijs voor "uitverkocht" */
+.badge-teal {
+    background: var(--teal-700);
+    color: white;
+}
+.badge-soft {
+    background: var(--teal-100);
+    color: var(--teal-900);
+}
+.badge-muted {
+    background: #e4e7e6;
+    color: var(--text);
+}
+
 /* ---------- Footer ---------- */
 .footer {
     background: var(--teal-900);
