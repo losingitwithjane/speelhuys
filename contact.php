@@ -20,7 +20,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="productpagina.php">Producten</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="contact_page.php">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="contact.php">Contact</a></li>
                 </ul>
                 <div class="ms-3">
                     <a href="admin/inlog.php" class="btn btn-login">
@@ -89,7 +89,7 @@
                          alt="Onze winkel" 
                          class="fun-image">
                     <p class="mt-3 text-muted">
-                        <i class="bi bi-emoji-smile text-warning"></i> 
+                        <i class="bi bi-emoji-smile icon-accent"></i> 
                         Onze gezellige winkel in het hart van Speelstad. Kom gerust eens langs!
                     </p>
                 </div>
@@ -101,7 +101,7 @@
                          alt="Joop en Ans" 
                          class="fun-image">
                     <p class="mt-3 text-muted">
-                        <i class="bi bi-emoji-laughing text-warning"></i> 
+                        <i class="bi bi-emoji-laughing icon-accent"></i> 
                         Joop en Ans tijdens het uitpakken van nieuwe voorraad! Altijd gezellig.
                     </p>
                 </div>
@@ -117,7 +117,7 @@
                          alt="Voorraad" 
                          class="fun-image-small">
                     <p class="mt-2 text-muted small">
-                        <i class="bi bi-box-seam text-success"></i> 
+                        <i class="bi bi-box-seam icon-accent"></i> 
                         Altijd vol met leuk speelgoed!
                     </p>
                 </div>
@@ -129,7 +129,7 @@
                          alt="Klanten" 
                          class="fun-image-small">
                     <p class="mt-2 text-muted small">
-                        <i class="bi bi-people-fill text-primary"></i> 
+                        <i class="bi bi-people-fill icon-accent"></i> 
                         Blije kinderen en tevreden ouders!
                     </p>
                 </div>
@@ -141,7 +141,7 @@
                          alt="Team" 
                          class="fun-image-small">
                     <p class="mt-2 text-muted small">
-                        <i class="bi bi-heart-fill text-danger"></i> 
+                        <i class="bi bi-heart-fill icon-accent"></i> 
                         Samen zorgen we voor de beste service!
                     </p>
                 </div>
@@ -151,15 +151,15 @@
         <!-- Extra leuke tekst -->
         <div class="row mt-4">
             <div class="col-md-12">
-                <div class="contact-card text-center" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">
-                    <h3 style="color: white;">✨ Kom langs voor een <span style="color: #ffd700;">glimlach</span>! ✨</h3>
-                    <p class="lead" style="color: rgba(255,255,255,0.9);">
+                <div class="contact-card contact-cta text-center">
+                    <h3>✨ Kom langs voor een <span class="highlight">glimlach</span>! ✨</h3>
+                    <p class="lead">
                         Of je nu komt voor speelgoed, advies of gewoon een praatje, 
                         we staan altijd voor je klaar! 
                         <i class="bi bi-emoji-heart-eyes"></i>
                     </p>
                     <div class="mt-3">
-                        <a href="productpagina.php" class="btn btn-hero" style="background: white; color: #764ba2;">
+                        <a href="productpagina.php" class="btn btn-hero">
                             <i class="bi bi-shop"></i> Bekijk onze producten
                         </a>
                     </div>
@@ -173,9 +173,9 @@
         <div class="container text-center">
             <p>&copy; 2025 Speelhuys - Door Joop en Ans</p>
             <p class="mt-2" style="opacity: 0.6; font-size: 0.9rem;">
-                <i class="bi bi-heart-fill text-danger"></i> 
+                <i class="bi bi-heart-fill icon-accent"></i> 
                 Met liefde gemaakt in Speelstad 
-                <i class="bi bi-heart-fill text-danger"></i>
+                <i class="bi bi-heart-fill icon-accent"></i>
             </p>
         </div>
     </footer>

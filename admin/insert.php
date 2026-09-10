@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="../index.php">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="../productpagina.php">Producten</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="contact_page.php">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="../contact.php">Contact</a></li>
                 </ul>
                 <div class="ms-3">
                     <a href="inlog.php" class="btn btn-login">

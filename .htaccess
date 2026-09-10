@@ -1,0 +1,4 @@
+# Zonder dit serveert Apache ook URL's als "productpagina.php/index.php".
+# De pagina laadt dan wel, maar de browser ziet "productpagina.php/" als map,
+# waardoor alle relatieve links, style.css en de afbeeldingen stukgaan.
+AcceptPathInfo Off

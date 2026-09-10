@@ -45,7 +45,7 @@ if ($set == null) {
                 <h2 class="mb-4">Set details</h2>
 
                 <div class="text-center mb-4">
-                    <img src="Upload/sets/<?= $set->image ?>" class="img-fluid img-thumbnail"
+                    <img src="upload/sets/<?= $set->image ?>" class="img-fluid img-thumbnail"
                         style="max-height: 400px;">
                 </div>
                 <table class="table table-bordered table-striped">
