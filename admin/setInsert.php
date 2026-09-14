@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pieces = $_POST["pieces"];
         $stock = $_POST["stock"];
 
-        $target = "../upload/";
+        $target = "../Upload/";
         $target_file = $target . basename($_FILES["image"]["name"]);
 
         move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);

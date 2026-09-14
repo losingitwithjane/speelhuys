@@ -1,8 +1,9 @@
 <?php
 include "classes/database.php";
 include "classes/set.php";
-include "classes/merk.php";
+include "classes/brand.php";
 include "classes/theme.php";
+
 $conn = Database::start();
 
 
@@ -11,6 +12,9 @@ $brands = Brand::findAll();
 $themes = Theme::findAll();
 $sets = Set::findAll();
 
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$maxPage = 3;
+if ($page > $maxPage) $page = $maxPage;
 
 // Filter op merk
 if (isset($_GET['brand_id']) && $_GET['brand_id'] != '') {
@@ -102,9 +106,14 @@ if (isset($_GET['pieces']) && $_GET['pieces'] != '') {
                     <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
                     <li class="nav-item"><a class="nav-link active" href="productpagina.php">Producten</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
+                    <?php if (isset($_COOKIE["speelhuys-session"])) { ?>
+                    <li class="nav-item"><a class="nav-link" href="admin/admin.php">Admin pagina</a></li>
+                    <?php } ?>
                 </ul>
                 <div class="ms-3">
+                    <?php if (!isset($_COOKIE["speelhuys-session"])) { ?>
                     <a href="admin/inlog.php" class="btn btn-login">Inloggen</a>
+                    <?php } ?>
                 </div>  
             </div>
         </div>
@@ -198,7 +207,7 @@ if (isset($_GET['pieces']) && $_GET['pieces'] != '') {
     <div class="container mt-3">
         <div class="row">
             <?php if (count($sets) > 0): ?>
-                <?php foreach ($sets as $set): ?>
+                <?php foreach ($sets as $set): $page += 1?>
                     <div class="col-md-4 mb-3">
                         <div class="card product-card">
                             <img src="upload/sets/<?= htmlspecialchars($set->image) ?>"
@@ -229,5 +238,16 @@ if (isset($_GET['pieces']) && $_GET['pieces'] != '') {
             
         </div>
     </div>
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul>
+</nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

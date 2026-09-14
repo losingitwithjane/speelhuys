@@ -57,19 +57,18 @@ class Brand
     {
         $conn = Database::start();
 
-        $id = mysqli_real_escape_string($conn, $this->id);
         $name = mysqli_real_escape_string($conn, $this->name);
         $logo = mysqli_real_escape_string($conn, $this->logo);
 
         $sql = "INSERT INTO brands
-        (brand_id,
-        brand_name,
+        (brand_name,
         brand_logo)
         VALUES
-        ('$id',
-        '$name',
+        ('$name',
         '$logo')";
 
+        echo $sql;
+        
         $result = $conn->query($sql);
         if (!$result) {
             die("error" . $conn->error);
