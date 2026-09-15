@@ -2,7 +2,19 @@
 
 include '../classes/database.php';
 include '../classes/theme.php';
+include "../classes/sessie.php";
 
+$conn = Database::start();
+
+$session = Sessie::findSession();
+
+if ($session == null) {
+    header("Location: ../index.php?message=Geen sessie.");
+}
+
+if (!isset($_COOKIE["speelhuys-session"])) {
+    header("Location: ../index.php?message=Geen cookie.");
+}
 
 if (isset($_POST["name"])) {
 

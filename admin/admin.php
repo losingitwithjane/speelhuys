@@ -11,14 +11,14 @@ $conn = Database::start();
 $session = Sessie::findSession();
 
 if ($session == null) {
-    header("Location: inlog.php?message=Log eerst in.");
+    header("Location: inlog.php?message=Log in.");
     exit;
 }
 
 $user = User::findById($session->session_user_id);
 
 if ($user == null) {
-    header("Location: inlog.php?message=Gebruiker niet gevonden.");
+    header("Location: ../index.php?message=Gebruiker niet gevonden.");
     exit;
 }
 

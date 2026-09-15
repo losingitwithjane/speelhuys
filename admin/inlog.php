@@ -5,6 +5,12 @@ include '../classes/gebruiker.php';
 
 $conn = Database::start();
 
+$sessie = Sessie::findSession();
+
+if ($sessie) {
+    header("Location: admin.php?message=Al ingelogd.");
+}
+
 $melding = isset($_GET["message"]) ? $_GET["message"] : "";
 
 if (isset($_POST["username"]) && $_POST["username"] != "" && isset($_POST["password"]) && $_POST["password"] != "") { //controleert of de gebruikersnaam en wachtwoord zijn ingevuld

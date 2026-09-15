@@ -2,29 +2,42 @@
 
 include '../classes/database.php';
 include '../classes/brand.php';
+include "../classes/sessie.php";
 
+$conn = Database::start();
+
+$session = Sessie::findSession();
+
+if ($session == null) {
+    header("Location: ../index.php?message=Geen sessie.");
+}
+
+if (!isset($_COOKIE["speelhuys-session"])) {
+    header("Location: ../index.php?message=Geen cookie.");
+}
 
 $image = null;
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST["name"])) {
 
-if (isset($_POST["name"])) {
+        $image = $_FILES["image"]["name"];
 
-    $image = $_FILES["image"]["name"];
+        $target = "../Upload/logos/";
+        $target_file = $target . basename($image);
 
-    $target = "../Upload/logos/";
-    $target_file = $target . basename($image);
+        move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
 
-    move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
+        $brand = new Brand();
 
-    $brand = new Brand();
+        $brand->name = $_POST["name"];
+        $brand->logo = $image;
 
-    $brand->name = $_POST["name"];
-    $brand->logo = $image;
+        $brand->insert();
 
-    $brand->insert();
-
-    echo "<div class='alert alert-success' role='alert'>Merk toegevoegd.</div>";
-} else {
-    echo "<div class='alert alert-danger' role='alert'>Kan merk niet toevoegen. Vul eerst alle velden in.</div>";
+        echo "<div class='alert alert-success' role='alert'>Merk toegevoegd.</div>";
+    } else {
+        echo "<div class='alert alert-danger' role='alert'>Kan merk niet toevoegen. Vul eerst alle velden in.</div>";
+    }
 }
 ?>
 

@@ -9,6 +9,10 @@ if (!isset($_GET["id"])) {
     exit;
 }
 
+if (!isset($_COOKIE["speelhuys-session"])) {
+    header("Location: ../index.php?message=Geen cookie.");
+}
+
 $id = $_GET["id"];
 
 $conn = Database::start();

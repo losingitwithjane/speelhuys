@@ -9,6 +9,10 @@ if (!isset($_GET["id"])) {
     exit;
 }
 
+if (!isset($_COOKIE["speelhuys-session"])) {
+    header("Location: ../index.php?message=Geen cookie.");
+}
+
 $id = $_GET["id"];
 
 $conn = Database::start();
@@ -17,7 +21,7 @@ $user = User::findById($session->session_user_id);
 $set = Set::findById($id);
 
 if ($session == null) {
-    header("Location: inlog.php?message=Geen actieve sessie.");
+    header("Location: ../index.php?message=Geen actieve sessie.");
     exit;
 }
 
