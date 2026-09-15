@@ -12,6 +12,50 @@ class Set
     public $pieces;
     public $stock;
 
+    private static function fromRow($row)
+    {
+        $set = new Set();
+
+        $set->id = $row["set_id"];
+        $set->name = $row["set_name"];
+        $set->description = $row["set_description"];
+        $set->brandId = $row["set_brand_id"];
+        $set->themeId = $row["set_theme_id"];
+        $set->image = $row["set_image"];
+        $set->price = $row["set_price"];
+        $set->age = $row["set_age"];
+        $set->pieces = $row["set_pieces"];
+        $set->stock = $row["set_stock"];
+
+        return $set;
+    }
+
+    public static function findRandom()
+    {
+        $conn = Database::start();
+
+        $sql = "
+            SELECT
+                *
+            FROM
+                sets
+            WHERE
+                set_image IS NOT NULL AND set_image != ''
+            ORDER BY
+                RAND()
+            LIMIT 1
+        ";
+        $result = $conn->query($sql);
+
+        $set = null;
+
+        if ($result && $result->num_rows > 0) {
+            $set = Set::fromRow($result->fetch_assoc());
+        }
+        $conn->close();
+        return $set;
+    }
+
     public static function findAll()
     {
         $conn = Database::start();

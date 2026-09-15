@@ -1,160 +1,64 @@
-HEAD
 /* style.css - Minimale stijlen voor Speelhuys */
 
-/* Algemene stijlen */
+:root {
+    --teal-900: #1f4f4a;
+    --teal-700: #237c71;
+    --teal-600: #2b9083;
+    --teal-500: #2f9e8f;
+    --teal-100: #e8f5f2;
+    --page:     #f8fbfa;
+    --text:     #5b6663;
+    --shadow:   rgba(31, 79, 74, 0.08);
+    --shadow-lg: rgba(31, 79, 74, 0.14);
+}
+
+/* Algemeen */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8f9fa;
+    background-color: var(--page);
+    color: var(--text);
+}
+
+.navbar-brand span,
+.about h2 span,
+.contact-card h3 span,
+.contact-card h4 span {
+    color: var(--teal-500);
+}
+
+.icon-accent {
+    color: var(--teal-500);
+}
+.text-accent {
+    color: var(--teal-700);
 }
 
 /* Navigatie */
 .navbar {
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 10px var(--shadow);
 }
 .navbar-brand {
     font-weight: 700;
-    color: #2c3e50;
-}
-.navbar-brand span {
-    color: #e74c3c;
+    color: var(--teal-900);
 }
 .nav-link {
-    color: #2c3e50 !important;
+    color: var(--teal-900) !important;
     font-weight: 500;
 }
 .nav-link:hover {
-    color: #e74c3c !important;
-}
-
-/* Login knop */
-.btn-login {
-    background: #667eea;
-    color: white;
-    border-radius: 25px;
-    padding: 8px 25px;
-}
-.btn-login:hover {
-    background: #764ba2;
-    color: white;
-}
-
-/* Hero sectie */
-.hero {
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
-    padding: 80px 0;
-    border-radius: 0 0 30px 30px;
-    margin-bottom: 40px;
-}
-.hero h1 {
-    font-size: 3rem;
-    font-weight: 700;
-}
-.btn-hero {
-    background: white;
-    color: #764ba2;
-    padding: 12px 35px;
-    border-radius: 30px;
-    font-weight: 600;
-}
-.btn-hero:hover {
-    background: #f8f9fa;
-    color: #764ba2;
-}
-
-/* About sectie */
-.about {
-    background: white;
-    border-radius: 15px;
-    padding: 40px;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-    margin-bottom: 40px;
-}
-.about h2 {
-    color: #2c3e50;
-    font-weight: 700;
-}
-.about h2 span {
-    color: #e74c3c;
-}
-.about p {
-    color: #555;
-    line-height: 1.8;
-}
-.about-image {
-    border-radius: 10px;
-}
-
-/* Producten knop */
-.btn-producten {
-    background: linear-gradient(135deg, #f093fb, #f5576c);
-    color: white;
-    padding: 12px 35px;
-    border-radius: 30px;
-    font-weight: 600;
-}
-.btn-producten:hover {
-    color: white;
-    opacity: 0.9;
-}
-
-/* Footer */
-.footer {
-    background: #2c3e50;
-    color: white;
-    padding: 20px 0;
-    margin-top: 40px;
-}
-.footer p {
-    margin: 0;
-    opacity: 0.8;
-}
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8f9fa;
-}
-
-/* Navigatie */
-.navbar {
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
-.navbar-brand {
-    font-weight: 700;
-    color: #2c3e50;
-}
-.navbar-brand span {
-    color: #e74c3c;
-}
-.nav-link {
-    color: #2c3e50 !important;
-    font-weight: 500;
-}
-.nav-link:hover {
-    color: #e74c3c !important;
+    color: var(--teal-500) !important;
 }
 .nav-link.active {
-    color: #667eea !important;
+    color: var(--teal-700) !important;
     font-weight: 600;
-}
-
-/* Login knop */
-.btn-login {
-    background: #667eea;
-    color: white;
-    border-radius: 25px;
-    padding: 8px 25px;
-}
-.btn-login:hover {
-    background: #764ba2;
-    color: white;
 }
 
 /* Hero sectie */
 .hero {
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: var(--teal-900);
     color: white;
     padding: 80px 0;
-    border-radius: 0 0 30px 30px;
+    /*border-radius: 0 0 30px 30px;*/
     margin-bottom: 40px;
 }
 .hero h1 {
@@ -174,55 +78,78 @@ body {
     background: white;
     border-radius: 15px;
     padding: 40px;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 15px var(--shadow);
     margin-bottom: 40px;
 }
 .about h2 {
-    color: #2c3e50;
+    color: var(--teal-900);
     font-weight: 700;
 }
-.about h2 span {
-    color: #e74c3c;
-}
 .about p {
-    color: #555;
+    color: var(--text);
     line-height: 1.8;
 }
 .about-image {
     border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 360px;
+    height: 360px;
+    object-fit: contain;
 }
 
 /* Knoppen */
+.btn-login {
+    background: var(--teal-700);
+    color: white;
+    border-radius: 25px;
+    padding: 8px 25px;
+}
+.btn-login:hover {
+    background: var(--teal-600);
+    color: white;
+}
+
 .btn-hero {
     background: white;
-    color: #764ba2;
+    color: var(--teal-700);
     padding: 12px 35px;
     border-radius: 30px;
     font-weight: 600;
 }
 .btn-hero:hover {
-    background: #f8f9fa;
-    color: #764ba2;
+    background: var(--teal-100);
+    color: var(--teal-900);
 }
 
 .btn-producten {
-    background: linear-gradient(135deg, #f093fb, #f5576c);
+    background: var(--teal-700);
     color: white;
     padding: 12px 35px;
     border-radius: 30px;
     font-weight: 600;
 }
 .btn-producten:hover {
+    background: var(--teal-600);
     color: white;
-    opacity: 0.9;
 }
 
-/* Contact pagina stijlen */
+.hero .btn-producten {
+    background: white;
+    color: var(--teal-900);
+}
+.hero .btn-producten:hover {
+    background: var(--teal-100);
+    color: var(--teal-900);
+}
+
+/* Contact pagina */
 .contact-card {
     background: white;
     border-radius: 15px;
     padding: 30px;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 15px var(--shadow);
     margin-bottom: 20px;
     height: 100%;
     transition: transform 0.3s;
@@ -231,330 +158,194 @@ body {
     transform: translateY(-5px);
 }
 .contact-card h3 {
-    color: #2c3e50;
+    color: var(--teal-900);
     font-weight: 700;
     margin-bottom: 20px;
 }
-.contact-card h3 span {
-    color: #e74c3c;
-}
 .contact-card h4 {
-    color: #2c3e50;
+    color: var(--teal-900);
     font-weight: 600;
     margin-bottom: 15px;
 }
-.contact-card h4 span {
-    color: #e74c3c;
-}
 .contact-icon {
     font-size: 2.5rem;
-    color: #667eea;
+    color: var(--teal-500);
     margin-bottom: 10px;
 }
 .contact-info p {
     margin: 5px 0;
-    color: #555;
+    color: var(--text);
 }
 .fun-image {
     border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 20px var(--shadow-lg);
     width: 100%;
     height: 250px;
     object-fit: cover;
 }
 .fun-image-small {
     border-radius: 10px;
-    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 3px 15px var(--shadow-lg);
     width: 100%;
     height: 150px;
     object-fit: cover;
 }
 
-/* Footer */
-.footer {
-    background: #2c3e50;
-    color: white;
-    padding: 20px 0;
-    margin-top: 40px;
-}
-.footer p {
-    margin: 0;
-    opacity: 0.8;
-
-/* style.css - Minimale stijlen voor Speelhuys */
-
-/* Algemene stijlen */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8f9fa;
-}
-
-/* Navigatie */
-.navbar {
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
-.navbar-brand {
-    font-weight: 700;
-    color: #2c3e50;
-}
-.navbar-brand span {
-    color: #e74c3c;
-}
-.nav-link {
-    color: #2c3e50 !important;
-    font-weight: 500;
-}
-.nav-link:hover {
-    color: #e74c3c !important;
-}
-
-/* Login knop */
-.btn-login {
-    background: #667eea;
-    color: white;
-    border-radius: 25px;
-    padding: 8px 25px;
-}
-.btn-login:hover {
-    background: #764ba2;
+.contact-cta {
+    background: var(--teal-900);
     color: white;
 }
-
-/* Hero sectie */
-.hero {
-    background: linear-gradient(135deg, #667eea, #764ba2);
+.contact-cta h3 {
     color: white;
-    padding: 80px 0;
-    border-radius: 0 0 30px 30px;
-    margin-bottom: 40px;
 }
-.hero h1 {
-    font-size: 3rem;
-    font-weight: 700;
+.contact-cta .highlight {
+    color: var(--teal-100);
 }
-.btn-hero {
+.contact-cta .lead {
+    color: rgba(255,255,255,0.9);
+}
+.contact-cta .btn-hero {
     background: white;
-    color: #764ba2;
-    padding: 12px 35px;
-    border-radius: 30px;
-    font-weight: 600;
+    color: var(--teal-700);
 }
-.btn-hero:hover {
-    background: #f8f9fa;
-    color: #764ba2;
+.contact-cta .btn-hero:hover {
+    background: var(--teal-100);
+    color: var(--teal-900);
 }
 
-/* About sectie */
-.about {
+/* Productpagina */
+.filter-card {
     background: white;
+    border: none;
     border-radius: 15px;
-    padding: 40px;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-    margin-bottom: 40px;
+    box-shadow: 0 2px 15px var(--shadow);
 }
-.about h2 {
-    color: #2c3e50;
-    font-weight: 700;
-}
-.about h2 span {
-    color: #e74c3c;
-}
-.about p {
-    color: #555;
-    line-height: 1.8;
-}
-.about-image {
-    border-radius: 10px;
-}
-
-/* Producten knop */
-.btn-producten {
-    background: linear-gradient(135deg, #f093fb, #f5576c);
-    color: white;
-    padding: 12px 35px;
-    border-radius: 30px;
+.filter-card .form-label {
+    color: var(--teal-900);
     font-weight: 600;
 }
-.btn-producten:hover {
-    color: white;
-    opacity: 0.9;
+.form-select:focus {
+    border-color: var(--teal-500);
+    box-shadow: 0 0 0 0.2rem rgba(47, 158, 143, 0.25);
 }
 
-/* Footer */
-.footer {
-    background: #2c3e50;
-    color: white;
-    padding: 20px 0;
-    margin-top: 40px;
-}
-.footer p {
-    margin: 0;
-    opacity: 0.8;
-}
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8f9fa;
-}
-
-/* Navigatie */
-.navbar {
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
-.navbar-brand {
-    font-weight: 700;
-    color: #2c3e50;
-}
-.navbar-brand span {
-    color: #e74c3c;
-}
-.nav-link {
-    color: #2c3e50 !important;
-    font-weight: 500;
-}
-.nav-link:hover {
-    color: #e74c3c !important;
-}
-.nav-link.active {
-    color: #667eea !important;
-    font-weight: 600;
-}
-
-/* Login knop */
-.btn-login {
-    background: #667eea;
-    color: white;
-    border-radius: 25px;
-    padding: 8px 25px;
-}
-.btn-login:hover {
-    background: #764ba2;
-    color: white;
-}
-
-/* Hero sectie */
-.hero {
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
-    padding: 80px 0;
-    border-radius: 0 0 30px 30px;
-    margin-bottom: 40px;
-}
-.hero h1 {
-    font-size: 3rem;
-    font-weight: 700;
-}
-.hero-contact {
-    padding: 60px 0;
-    margin-bottom: 40px;
-}
-.hero-contact h1 {
-    font-size: 2.5rem;
-}
-
-/* About sectie */
-.about {
+.product-card {
     background: white;
+    border: none;
     border-radius: 15px;
-    padding: 40px;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-    margin-bottom: 40px;
-}
-.about h2 {
-    color: #2c3e50;
-    font-weight: 700;
-}
-.about h2 span {
-    color: #e74c3c;
-}
-.about p {
-    color: #555;
-    line-height: 1.8;
-}
-.about-image {
-    border-radius: 10px;
-}
-
-/* Knoppen */
-.btn-hero {
-    background: white;
-    color: #764ba2;
-    padding: 12px 35px;
-    border-radius: 30px;
-    font-weight: 600;
-}
-.btn-hero:hover {
-    background: #f8f9fa;
-    color: #764ba2;
-}
-
-.btn-producten {
-    background: linear-gradient(135deg, #f093fb, #f5576c);
-    color: white;
-    padding: 12px 35px;
-    border-radius: 30px;
-    font-weight: 600;
-}
-.btn-producten:hover {
-    color: white;
-    opacity: 0.9;
-}
-
-/* Contact pagina stijlen */
-.contact-card {
-    background: white;
-    border-radius: 15px;
-    padding: 30px;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-    margin-bottom: 20px;
+    box-shadow: 0 2px 15px var(--shadow);
     height: 100%;
     transition: transform 0.3s;
 }
-.contact-card:hover {
+.product-card:hover {
     transform: translateY(-5px);
 }
-.contact-card h3 {
-    color: #2c3e50;
+.product-card h5 {
+    color: var(--teal-900);
     font-weight: 700;
+}
+.product-card .prijs {
+    color: var(--teal-700);
+    font-weight: 700;
+}
+
+.btn-teal {
+    background: var(--teal-700);
+    color: white;
+    font-weight: 600;
+}
+.btn-teal:hover {
+    background: var(--teal-600);
+    color: white;
+}
+.btn-teal-outline {
+    background: transparent;
+    border: 2px solid var(--teal-700);
+    color: var(--teal-700);
+    font-weight: 600;
+}
+.btn-teal-outline:hover {
+    background: var(--teal-700);
+    color: white;
+}
+
+.badge-teal {
+    background: var(--teal-700);
+    color: white;
+}
+.badge-soft {
+    background: var(--teal-100);
+    color: var(--teal-900);
+}
+.badge-muted {
+    background: #e4e7e6;
+    color: var(--text);
+}
+
+/* Inlogpagina */
+.login-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 70px 15px;
+}
+.login-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 15px var(--shadow);
+    padding: 40px;
+    width: 100%;
+    max-width: 420px;
+}
+.login-icon {
+    font-size: 2.5rem;
+    color: var(--teal-500);
+}
+.login-card h1 {
+    color: var(--teal-900);
+    font-weight: 700;
+    font-size: 1.75rem;
+}
+.login-card .form-label {
+    color: var(--teal-900);
+    font-weight: 600;
+}
+.form-control:focus {
+    border-color: var(--teal-500);
+    box-shadow: 0 0 0 0.2rem rgba(47, 158, 143, 0.25);
+}
+.login-alert {
+    background: var(--teal-100);
+    color: var(--teal-900);
+    border: 1px solid var(--teal-500);
+    border-radius: 10px;
+    padding: 12px 15px;
     margin-bottom: 20px;
 }
-.contact-card h3 span {
-    color: #e74c3c;
+
+/* Beheerpagina */
+.beheer-titel {
+    color: var(--teal-900);
+    font-weight: 700;
+    font-size: 1.75rem;
 }
-.contact-card h4 {
-    color: #2c3e50;
+.beheer-acties {
+    border-top: 1px solid var(--teal-100);
+}
+.btn-verwijder {
+    background: transparent;
+    border: 2px solid #a8534a;
+    color: #a8534a;
     font-weight: 600;
-    margin-bottom: 15px;
 }
-.contact-card h4 span {
-    color: #e74c3c;
-}
-.contact-icon {
-    font-size: 2.5rem;
-    color: #667eea;
-    margin-bottom: 10px;
-}
-.contact-info p {
-    margin: 5px 0;
-    color: #555;
-}
-.fun-image {
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-}
-.fun-image-small {
-    border-radius: 10px;
-    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
+.btn-verwijder:hover {
+    background: #a8534a;
+    color: white;
 }
 
 /* Footer */
 .footer {
-    background: #2c3e50;
+    background: var(--teal-900);
     color: white;
     padding: 20px 0;
     margin-top: 40px;
@@ -562,6 +353,4 @@ body {
 .footer p {
     margin: 0;
     opacity: 0.8;
-
-}
 }

@@ -1,14 +1,20 @@
 <?php
 include "classes/database.php";
 include "classes/set.php";
-include "classes/merk.php";
+include "classes/brand.php";
 include "classes/theme.php";
+
 $conn = Database::start();
+
 
 // Haal alle merken, sets en thema's op voor de filters
 $brands = Brand::findAll();
 $themes = Theme::findAll();
 $sets = Set::findAll();
+
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$maxPage = 3;
+if ($page > $maxPage) $page = $maxPage;
 
 // Filter op merk
 if (isset($_GET['brand_id']) && $_GET['brand_id'] != '') {
@@ -22,6 +28,7 @@ if (isset($_GET['brand_id']) && $_GET['brand_id'] != '') {
     $sets = $gefilterdeSets;
 }
 
+
 // Filter op thema
 if (isset($_GET['set_theme']) && $_GET['set_theme'] != '') {
     $themeId = $_GET['set_theme'];
@@ -33,6 +40,7 @@ if (isset($_GET['set_theme']) && $_GET['set_theme'] != '') {
     }
     $sets = $gefilterdeSets;
 }
+
 
 // Filter op prijs
 if (isset($_GET['price']) && $_GET['price'] != '') {
@@ -46,6 +54,7 @@ if (isset($_GET['price']) && $_GET['price'] != '') {
     $sets = $gefilterdeSets;
 }
 
+
 // Filter op leeftijd
 if (isset($_GET['age']) && $_GET['age'] != '') {
     $age = $_GET['age'];
@@ -57,6 +66,7 @@ if (isset($_GET['age']) && $_GET['age'] != '') {
     }
     $sets = $gefilterdeSets;
 }
+
 
 // Filter op aantal stukken
 if (isset($_GET['pieces']) && $_GET['pieces'] != '') {
@@ -73,6 +83,7 @@ if (isset($_GET['pieces']) && $_GET['pieces'] != '') {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -80,8 +91,9 @@ if (isset($_GET['pieces']) && $_GET['pieces'] != '') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Producten - Speelhuys</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <nav class="navbar navbar-expand-lg bg-white">
         <div class="container">
@@ -92,26 +104,32 @@ if (isset($_GET['pieces']) && $_GET['pieces'] != '') {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="productpagina.php">Producten</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contact_page.php">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="productpagina.php">Producten</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
+                    <?php if (isset($_COOKIE["speelhuys-session"])) { ?>
+                    <li class="nav-item"><a class="nav-link" href="admin/admin.php">Admin pagina</a></li>
+                    <?php } ?>
                 </ul>
                 <div class="ms-3">
+                    <?php if (!isset($_COOKIE["speelhuys-session"])) { ?>
                     <a href="admin/inlog.php" class="btn btn-login">Inloggen</a>
-                </div>
+                    <?php } ?>
+                </div>  
             </div>
         </div>
     </nav>
 
+
     <!-- Filters -->
     <div class="container mt-4">
-        <div class="card p-4">
+        <div class="card filter-card p-4">
             <form method="GET" class="row g-3">
                 <!-- Merk Filter -->
                 <div class="col-md-2">
                     <label for="brand_id" class="form-label">Merk</label>
                     <select name="brand_id" id="brand_id" class="form-select">
                         <option value="">Alle Merken</option>
-                        <?php foreach ($brands as $brand): 
+                        <?php foreach ($brands as $brand):
                             $sel = isset($_GET['brand_id']) && $_GET['brand_id'] == $brand->id ? 'selected' : '';
                         ?>
                             <option value="<?= $brand->id ?>" <?= $sel ?>><?= htmlspecialchars($brand->name) ?></option>
@@ -119,12 +137,13 @@ if (isset($_GET['pieces']) && $_GET['pieces'] != '') {
                     </select>
                 </div>
 
+
                 <!-- Thema Filter -->
-                <div class="col-md-2">
+                <div class="col">
                     <label for="set_theme" class="form-label">Thema</label>
                     <select name="set_theme" id="set_theme" class="form-select">
                         <option value="">Alle Thema's</option>
-                        <?php foreach ($themes as $theme): 
+                        <?php foreach ($themes as $theme):
                             $sel = isset($_GET['set_theme']) && $_GET['set_theme'] == $theme->id ? 'selected' : '';
                         ?>
                             <option value="<?= $theme->id ?>" <?= $sel ?>><?= htmlspecialchars($theme->name) ?></option>
@@ -132,18 +151,21 @@ if (isset($_GET['pieces']) && $_GET['pieces'] != '') {
                     </select>
                 </div>
 
+
                 <!-- Prijs Filter -->
-                <div class="col-md-2">
+                <div class="col">
                     <label for="price" class="form-label">Prijs</label>
                     <select name="price" id="price" class="form-select">
                         <option value="">Alle Prijzen</option>
                         <option value="0-25" <?= (isset($_GET['price']) && $_GET['price'] == '0-25') ? 'selected' : '' ?>>€0 - €25</option>
                         <option value="25-50" <?= (isset($_GET['price']) && $_GET['price'] == '25-50') ? 'selected' : '' ?>>€25 - €50</option>
                         <option value="50-100" <?= (isset($_GET['price']) && $_GET['price'] == '50-100') ? 'selected' : '' ?>>€50 - €100</option>
+                    </select>
                 </div>
 
+
                 <!-- Leeftijd Filter -->
-                <div class="col-md-2">
+                <div class="col">   
                     <label for="age" class="form-label">Leeftijd</label>
                     <select name="age" id="age" class="form-select">
                         <option value="">Alle Leeftijden</option>
@@ -157,8 +179,9 @@ if (isset($_GET['pieces']) && $_GET['pieces'] != '') {
                     </select>
                 </div>
 
+
                 <!-- Stukken Filter -->
-                <div class="col-md-2">
+                <div class="col">
                     <label for="pieces" class="form-label">Stukken</label>
                     <select name="pieces" id="pieces" class="form-select">
                         <option value="">Alle Aantallen</option>
@@ -170,36 +193,38 @@ if (isset($_GET['pieces']) && $_GET['pieces'] != '') {
                     </select>
                 </div>
 
+
                 <!-- Filter Button -->
                 <div class="col-md-2 d-flex align-items-end">
-                    <button type="submit" class="btn btn-primary w-100">Filter</button>
+                    <button type="submit" class="btn btn-teal w-100">Filter</button>
                 </div>
             </form>
         </div>
     </div>
 
+
     <!-- Producten -->
     <div class="container mt-3">
         <div class="row">
             <?php if (count($sets) > 0): ?>
-                <?php foreach ($sets as $set): ?>
+                <?php foreach ($sets as $set): $page += 1?>
                     <div class="col-md-4 mb-3">
-                        <div class="card">
-                            <img src="upload/sets/<?= htmlspecialchars($set->image) ?>" 
-                                 class="card-img-top" 
+                        <div class="card product-card">
+                            <img src="upload/sets/<?= htmlspecialchars($set->image) ?>"
+                                 class="card-img-top"
                                  style="height:200px; object-fit:contain; padding:10px;"
                                  alt="<?= htmlspecialchars($set->name) ?>">
                             <div class="card-body">
                                 <h5><?= htmlspecialchars($set->name) ?></h5>
                                 <p class="text-muted small"><?php foreach ($brands as $brand) if ($brand->id == $set->brandId) echo htmlspecialchars($brand->name); ?></p>
                                 <p><?= htmlspecialchars(substr($set->description, 0, 80)) ?>...</p>
-                                <a href="detail.php?id=<?= $set->id ?>" class="btn btn-primary mt-auto btn-outline-warning">Detail</a>
+                                <a href="detail.php?id=<?= $set->id ?>" class="btn btn-teal-outline btn-sm mt-auto">Detail</a>
                                 <p class="mt-2">
-                                    <span class="badge bg-primary"><?= $set->age ?>+ jaar</span>
-                                    <span class="badge bg-secondary"><?= $set->pieces ?> stukjes</span>
+                                    <span class="badge badge-teal"><?= $set->age ?>+ jaar</span>
+                                    <span class="badge badge-soft"><?= $set->pieces ?> stukjes</span>
                                 </p>
-                                <h5 class="text-success">€<?= number_format($set->price, 2) ?></h5>
-                                <?php $badge = $set->stock > 0 ? 'bg-success' : 'bg-danger'; ?>
+                                <h5 class="prijs">€<?= number_format($set->price, 2) ?></h5>
+                                <?php $badge = $set->stock > 0 ? 'badge-teal' : 'badge-muted'; ?>
                                 <span class="badge <?= $badge ?>"><?= $set->stock > 0 ? 'Op voorraad' : 'Uitverkocht' ?></span>
                             </div>
                         </div>
@@ -210,7 +235,19 @@ if (isset($_GET['pieces']) && $_GET['pieces'] != '') {
                     <p class="text-center">Geen sets gevonden met de geselecteerde filters.</p>
                 </div>
             <?php endif; ?>
+            
         </div>
     </div>
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul>
+</nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

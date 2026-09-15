@@ -3,107 +3,216 @@ include "../classes/database.php";
 include "../classes/gebruiker.php";
 include "../classes/sessie.php";
 include "../classes/set.php";
+include "../classes/merk.php";
+include "../classes/theme.php";
 
-if (!isset($_COOKIE["speelhuys-session"])) { //als er geen sessie cookie is stuurt het de gebruiker terug
-    header("Location: ../index.php?message=Geen cookie.");
+$conn = Database::start();
+
+$session = Sessie::findSession();
+
+if ($session == null) {
+    header("Location: inlog.php?message=Log eerst in.");
     exit;
 }
 
-if (isset($_GET["message"])) { //toont messages in een bootstrap balk
-    ?>
-    <div class="alert alert-success d-flex align-items-center" role="alert">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="mr-2" viewBox="0 0 16 16" fill="currentColor">
-            <path
-                d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-        </svg>
-        <div>
-            <?= htmlspecialchars($_GET["message"]) ?>
-        </div>
-    </div>
-    <?php
-}
+$user = User::findById($session->session_user_id);
 
-$conn = Database::start(); //start database
-
-$session = Sessie::findSession(); //zoekt een sessie 
-
-if ($session == null) { //checkt of sessie null is of niet
-    header("location: ../index.php?message=Geen user.");
+if ($user == null) {
+    header("Location: inlog.php?message=Gebruiker niet gevonden.");
     exit;
 }
 
-$userId = $session->session_user_id; //pakt de user id en stopt het in userid
-
-$sets = Set::findAll(); //vindt alle sets
-$user = User::findById($userId); //zoekt de user via userid
-
-if ($user->rol == "employee") { //checkt of je admin bent
-    echo "employee";
+if ($user->rol != "admin" && $user->rol != "employee") {
+    header("Location: ../index.php?message=Geen toestemming voor het beheer.");
+    exit;
 }
-else if ($user->rol == "admin") {
-    echo "admin";
+
+$isAdmin = ($user->rol == "admin");
+
+$melding = isset($_GET["message"]) ? $_GET["message"] : "";
+
+$brands = Brand::findAll();
+$themes = Theme::findAll();
+$sets = Set::findAll();
+
+if (isset($_GET['brand_id']) && $_GET['brand_id'] != '') {
+    $brandId = $_GET['brand_id'];
+    $gefilterdeSets = [];
+    foreach ($sets as $set) {
+        if ($set->brandId == $brandId) {
+            $gefilterdeSets[] = $set;
+        }
+    }
+    $sets = $gefilterdeSets;
+}
+
+if (isset($_GET['set_theme']) && $_GET['set_theme'] != '') {
+    $themeId = $_GET['set_theme'];
+    $gefilterdeSets = [];
+    foreach ($sets as $set) {
+        if ($set->themeId == $themeId) {
+            $gefilterdeSets[] = $set;
+        }
+    }
+    $sets = $gefilterdeSets;
+}
+
+if (isset($_GET['stock']) && $_GET['stock'] != '') {
+    $stock = $_GET['stock'];
+    $gefilterdeSets = [];
+    foreach ($sets as $set) {
+        if ($stock == 'op' && $set->stock > 0) $gefilterdeSets[] = $set;
+        elseif ($stock == 'uit' && $set->stock == 0) $gefilterdeSets[] = $set;
+    }
+    $sets = $gefilterdeSets;
 }
 ?>
-
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
+    <title>Beheer - Speelhuys</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../style.css">
 </head>
-
 <body>
+    <nav class="navbar navbar-expand-lg bg-white">
+        <div class="container">
+            <a class="navbar-brand" href="../index.php">Speel<span>huys</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="../index.php">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../productpagina.php">Producten</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../contact.php">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="admin.php">Beheer</a></li>
+                </ul>
+                <div class="ms-3">
+                    <span class="badge badge-soft">
+                        <i class="bi bi-person-circle"></i>
+                        <?= htmlspecialchars($user->gebruikersnaam) ?> &middot; <?= htmlspecialchars($user->rol) ?>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-    <div class="container mt-3">
-        <div class="d-flex justify-content-between">
-            <a href="../index.php" class="btn btn-danger btn-lg btn-outline-warning">
-                Ga terug
-            </a>
-            <a href="../insert.php" class="btn btn-warning btn-lg btn-outline-success">
-                Insert
-            </a>
+    <div class="container mt-4">
+        <?php if ($melding != "") { ?>
+            <div class="login-alert d-flex align-items-center" role="alert">
+                <i class="bi bi-info-circle me-2"></i>
+                <div><?= htmlspecialchars($melding) ?></div>
+            </div>
+        <?php } ?>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="beheer-titel mb-0">Assortiment beheren</h1>
+            <?php if ($isAdmin) { ?>
+                <a href="setInsert.php" class="btn btn-teal">
+                    <i class="bi bi-plus-lg"></i> Nieuwe set
+                </a>
+            <?php } ?>
+        </div>
+
+        <div class="card filter-card p-4">
+            <form method="GET" class="row g-3">
+                <div class="col-md-4">
+                    <label for="brand_id" class="form-label">Merk</label>
+                    <select name="brand_id" id="brand_id" class="form-select">
+                        <option value="">Alle Merken</option>
+                        <?php foreach ($brands as $brand):
+                            $sel = isset($_GET['brand_id']) && $_GET['brand_id'] == $brand->id ? 'selected' : '';
+                        ?>
+                            <option value="<?= $brand->id ?>" <?= $sel ?>><?= htmlspecialchars($brand->name) ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="col">
+                    <label for="set_theme" class="form-label">Thema</label>
+                    <select name="set_theme" id="set_theme" class="form-select">
+                        <option value="">Alle Thema's</option>
+                        <?php foreach ($themes as $theme):
+                            $sel = isset($_GET['set_theme']) && $_GET['set_theme'] == $theme->id ? 'selected' : '';
+                        ?>
+                            <option value="<?= $theme->id ?>" <?= $sel ?>><?= htmlspecialchars($theme->name) ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="col">
+                    <label for="stock" class="form-label">Voorraad</label>
+                    <select name="stock" id="stock" class="form-select">
+                        <option value="">Alles</option>
+                        <option value="op" <?= (isset($_GET['stock']) && $_GET['stock'] == 'op') ? 'selected' : '' ?>>Op voorraad</option>
+                        <option value="uit" <?= (isset($_GET['stock']) && $_GET['stock'] == 'uit') ? 'selected' : '' ?>>Uitverkocht</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-teal w-100">Filter</button>
+                </div>
+            </form>
         </div>
     </div>
 
-    <div class="container mt-5">
-        <form method="post">
-            <div class="row text-center">
-                <?php
-                //elke nieuwe blog zal een eigen card krijgen met alle informatie, zal ook 3 knoppen hebben, voor detail, aanpassen en verwijderen
-                foreach ($sets as $set) { ?>
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 mx-auto" style="max-width: 18rem;">
-                            <div class="embed-responsive embed-responsive-1by1">
-                                <img src="../upload/sets/<?= $set->image ?>" class="card-img-top embed-responsive-item" style="object-fit: cover;" alt="">
-                            </div>
+    <div class="container mt-3">
+        <div class="row">
+            <?php if (count($sets) > 0): ?>
+                <?php foreach ($sets as $set): ?>
+                    <div class="col-md-4 mb-3">
+                        <div class="card product-card">
+                            <img src="../upload/sets/<?= htmlspecialchars($set->image) ?>"
+                                 class="card-img-top"
+                                 style="height:200px; object-fit:contain; padding:10px;"
+                                 alt="<?= htmlspecialchars($set->name) ?>">
+                            <div class="card-body">
+                                <h5><?= htmlspecialchars($set->name) ?></h5>
+                                <p class="text-muted small"><?php foreach ($brands as $brand) if ($brand->id == $set->brandId) echo htmlspecialchars($brand->name); ?></p>
+                                <p><?= htmlspecialchars(substr($set->description, 0, 80)) ?>...</p>
+                                <p class="mt-2">
+                                    <span class="badge badge-teal"><?= $set->age ?>+ jaar</span>
+                                    <span class="badge badge-soft"><?= $set->pieces ?> stukjes</span>
+                                </p>
+                                <h5 class="prijs">&euro;<?= number_format($set->price, 2) ?></h5>
+                                <?php $badge = $set->stock > 0 ? 'badge-teal' : 'badge-muted'; ?>
+                                <span class="badge <?= $badge ?>"><?= $set->stock > 0 ? 'Op voorraad (' . $set->stock . ')' : 'Uitverkocht' ?></span>
 
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title"><?= $set->name ?></h5>
-                                <div class="clamp-3">
-                                    <?= $set->description ?>
-                                </div>
-                                <a href="../detail.php?id=<?= $set->id ?>"
-                                    class="btn btn-primary mt-auto btn-outline-warning">Detail</a>
-
-                                <div class="d-flex justify-content-between mt-3 pt-2 border-top">
-                                    <a href="edit.php?id=<?= $set->id; ?>"
-                                        class="btn btn-sm btn-outline-primary">Aanpassen</a>
-                                           <?php if ($user->rol == "admin") { ?>
-                                        <a href="delete.php?id=<?= $set->id; ?>"
-                                
-                                        class="btn btn-sm btn-outline-danger">Verwijder</a>
+                                <div class="beheer-acties d-flex gap-2 mt-3 pt-3">
+                                    <a href="../detail.php?id=<?= $set->id ?>" class="btn btn-teal-outline btn-sm">
+                                        <i class="bi bi-eye"></i> Detail
+                                    </a>
+                                    <a href="setEdit.php?id=<?= $set->id ?>" class="btn btn-teal btn-sm">
+                                        <i class="bi bi-pencil"></i> Aanpassen
+                                    </a>
+                                    <?php if ($isAdmin) { ?>
+                                        <a href="setDelete.php?id=<?= $set->id ?>" class="btn btn-verwijder btn-sm ms-auto">
+                                            <i class="bi bi-trash"></i> Verwijder
+                                        </a>
                                     <?php } ?>
                                 </div>
                             </div>
                         </div>
                     </div>
-                <?php } ?>
-            </div>
-        </form>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="col-12">
+                    <p class="text-center">Geen sets gevonden met de geselecteerde filters.</p>
+                </div>
+            <?php endif; ?>
+        </div>
     </div>
-</body>
 
+    <footer class="footer">
+        <div class="container text-center">
+            <p>&copy; 2025 Speelhuys - Door Joop en Ans</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
