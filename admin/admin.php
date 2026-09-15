@@ -112,9 +112,18 @@ if (isset($_GET['stock']) && $_GET['stock'] != '') {
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h1 class="beheer-titel mb-0">Assortiment beheren</h1>
             <?php if ($isAdmin) { ?>
+            <div class="d-flex gap-2">
                 <a href="setInsert.php" class="btn btn-teal">
-                    <i class="bi bi-plus-lg"></i> Nieuwe set
+                    <i class="bi bi-plus-lg"></i> Maak set
                 </a>
+                <a href="brandInsert.php" class="btn btn-teal">
+                    <i class="bi bi-plus-lg"></i> Maak merk
+                </a>
+                <a href="setInsert.php" class="btn btn-teal">
+                    <i class="bi bi-plus-lg"></i> Maak thema
+                </a>
+            </div>
+
             <?php } ?>
         </div>
 
