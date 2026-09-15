@@ -1,30 +1,18 @@
 <?php
 
 include '../classes/database.php';
-include '../classes/brand.php';
+include '../classes/theme.php';
 
-
-$image = null;
 
 if (isset($_POST["name"])) {
 
-    $image = $_FILES["image"]["name"];
+    $theme = new Theme();
 
-    $target = "../Upload/logos/";
-    $target_file = $target . basename($image);
+    $theme->name = $_POST["name"];
 
-    move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
+    $theme->insert();
 
-    $brand = new Brand();
-
-    $brand->name = $_POST["name"];
-    $brand->logo = $image;
-
-    $brand->insert();
-
-    echo "<div class='alert alert-success' role='alert'>Merk toegevoegd.</div>";
-} else {
-    echo "<div class='alert alert-danger' role='alert'>Kan merk niet toevoegen. Vul eerst alle velden in.</div>";
+    echo "<div class='alert alert-success' role='alert'>Thema toegevoegd.</div>";
 }
 ?>
 
@@ -65,7 +53,7 @@ if (isset($_POST["name"])) {
     </nav>
 
     <div class="container mt-5">
-        <h1>Merk toevoegen</h1>
+        <h1>Thema toevoegen</h1>
 
         <form method="POST" enctype="multipart/form-data">
 
@@ -74,18 +62,9 @@ if (isset($_POST["name"])) {
                 <input type="text" class="form-control" name="name" id="name" required>
             </div>
 
-            <div class="mb-3">
-                <label for="image" class="form-label">Logo</label>
-                <input type="file" class="form-control" name="image" id="image" required>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Merk toevoegen</button>
+            <button type="submit" class="btn btn-primary">Thema toevoegen</button>
 
         </form>
-
-        <div class="text-center mb-4">
-            <img src="<?php $image ?>" class="img-fluid img-thumbnail" style="max-height: 400px;">
-        </div>
     </div>
                 
 

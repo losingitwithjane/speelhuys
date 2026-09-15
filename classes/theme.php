@@ -54,15 +54,12 @@ class Theme
     {
         $conn = Database::start();
 
-        $id = mysqli_real_escape_string($conn, $this->id);
         $name = mysqli_real_escape_string($conn, $this->name);
 
         $sql = "INSERT INTO themes
-        (theme_id,
-        theme_name)
+        (theme_name)
         VALUES
-        ('$id',
-        '$name')";
+        ('$name')";
 
         $result = $conn->query($sql);
         if (!$result) {

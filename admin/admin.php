@@ -119,7 +119,7 @@ if (isset($_GET['stock']) && $_GET['stock'] != '') {
                 <a href="brandInsert.php" class="btn btn-teal">
                     <i class="bi bi-plus-lg"></i> Maak merk
                 </a>
-                <a href="setInsert.php" class="btn btn-teal">
+                <a href="themeInsert.php" class="btn btn-teal">
                     <i class="bi bi-plus-lg"></i> Maak thema
                 </a>
             </div>
