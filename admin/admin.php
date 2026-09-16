@@ -108,29 +108,60 @@ if (isset($_GET['stock']) && $_GET['stock'] != '') {
 
         <div class="card filter-card p-4">
             <form method="GET" class="row g-3">
-                <div class="col-md-4">
-                    <label for="brand_id" class="form-label">Merk</label>
-                    <select name="brand_id" id="brand_id" class="form-select">
-                        <option value="">Alle Merken</option>
-                        <?php foreach ($brands as $brand):
-                            $sel = isset($_GET['brand_id']) && $_GET['brand_id'] == $brand->id ? 'selected' : '';
-                        ?>
-                            <option value="<?= $brand->id ?>" <?= $sel ?>><?= htmlspecialchars($brand->name) ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
 
-                <div class="col">
-                    <label for="set_theme" class="form-label">Thema</label>
-                    <select name="set_theme" id="set_theme" class="form-select">
-                        <option value="">Alle Thema's</option>
-                        <?php foreach ($themes as $theme):
-                            $sel = isset($_GET['set_theme']) && $_GET['set_theme'] == $theme->id ? 'selected' : '';
-                        ?>
-                            <option value="<?= $theme->id ?>" <?= $sel ?>><?= htmlspecialchars($theme->name) ?></option>
-                        <?php endforeach; ?>
-                    </select>
+            <div class="col">
+                <label class="form-label d-block">Merk</label>
+                <div class="dropdown">
+                    <button class="btn btn-outline-success dropdown-toggle w-100 text-start d-flex justify-content-between align-items-center" type="button" id="brandDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        Alle Merken
+                    </button>
+
+                    <ul class="dropdown-menu w-100" aria-labelledby="brandDropdown">
+                        <li>
+                            <a class="dropdown-item" href="?brand_id=">Alle Merken</a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        
+                        <?php foreach ($brands as $brand) { ?>
+                            <li class="px-3 py-1 d-flex justify-content-between align-items-center dropdown-item-container">
+                                <a class="text-decoration-none text-dark flex-grow-1 py-1" href="?brand_id=<?= $brand->id ?>">
+                                    <?= htmlspecialchars($brand->name) ?>
+                                </a>
+                                <a href="brandDelete.php?id=<?= $brand->id ?>" class="btn btn-verwijder btn-sm ms-auto">
+                                    <i class="bi bi-trash"></i> Verwijder
+                                </a>
+                            </li>
+                        <?php } ?>
+                    </ul>
                 </div>
+            </div>
+
+            <div class="col">
+                <label class="form-label d-block">Thema</label>
+                <div class="dropdown">
+                    <button class="btn btn-outline-success dropdown-toggle w-100 text-start d-flex justify-content-between align-items-center" type="button" id="brandDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        Alle Theme's
+                    </button>
+
+                    <ul class="dropdown-menu w-100" aria-labelledby="brandDropdown">
+                        <li>
+                            <a class="dropdown-item" href="?brand_id=">Alle Theme's</a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        
+                        <?php foreach ($themes as $theme) { ?>
+                            <li class="px-3 py-1 d-flex justify-content-between align-items-center dropdown-item-container">
+                                <a class="text-decoration-none text-dark flex-grow-1 py-1" href="?brand_id=<?= $theme->id ?>">
+                                    <?= htmlspecialchars($theme->name) ?>
+                                </a>
+                                <a href="themeDelete.php?id=<?= $theme->id ?>" class="btn btn-verwijder btn-sm ms-auto">
+                                    <i class="bi bi-trash"></i> Verwijder
+                                </a>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
+            </div>
 
                 <div class="col">
                     <label for="stock" class="form-label">Voorraad</label>
