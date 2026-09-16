@@ -57,15 +57,6 @@ if (isset($_GET['set_theme']) && $_GET['set_theme'] != '') {
     $sets = $gefilterdeSets;
 }
 
-if (isset($_GET['stock']) && $_GET['stock'] != '') {
-    $stock = $_GET['stock'];
-    $gefilterdeSets = [];
-    foreach ($sets as $set) {
-        if ($stock == 'op' && $set->stock > 0) $gefilterdeSets[] = $set;
-        elseif ($stock == 'uit' && $set->stock == 0) $gefilterdeSets[] = $set;
-    }
-    $sets = $gefilterdeSets;
-}
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -140,12 +131,12 @@ if (isset($_GET['stock']) && $_GET['stock'] != '') {
                 <label class="form-label d-block">Thema</label>
                 <div class="dropdown">
                     <button class="btn btn-outline-success dropdown-toggle w-100 text-start d-flex justify-content-between align-items-center" type="button" id="brandDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        Alle Theme's
+                        Alle Thema's
                     </button>
 
                     <ul class="dropdown-menu w-100" aria-labelledby="brandDropdown">
                         <li>
-                            <a class="dropdown-item" href="?brand_id=">Alle Theme's</a>
+                            <a class="dropdown-item" href="?brand_id=">Alle Thema's</a>
                         </li>
                         <li><hr class="dropdown-divider"></li>
                         
@@ -162,15 +153,6 @@ if (isset($_GET['stock']) && $_GET['stock'] != '') {
                     </ul>
                 </div>
             </div>
-
-                <div class="col">
-                    <label for="stock" class="form-label">Voorraad</label>
-                    <select name="stock" id="stock" class="form-select">
-                        <option value="">Alles</option>
-                        <option value="op" <?= (isset($_GET['stock']) && $_GET['stock'] == 'op') ? 'selected' : '' ?>>Op voorraad</option>
-                        <option value="uit" <?= (isset($_GET['stock']) && $_GET['stock'] == 'uit') ? 'selected' : '' ?>>Uitverkocht</option>
-                    </select>
-                </div>
 
                 <div class="col-md-2 d-flex align-items-end">
                     <button type="submit" class="btn btn-teal w-100">Filter</button>

@@ -28,6 +28,7 @@ if ($set == null) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -57,8 +58,23 @@ if ($set == null) {
                         <th>Description</th>
                         <td><?= $set->description ?></td>
                     </tr>
+                    <tr>
+                        <th>Prijs</th>
+                        <td><?= $set->price ?> euro</td>
+                    </tr>
+                    <tr>
+                        <th>Leeftijd</th>
+                        <td><?= $set->age ?> jaar oud</td>
+                    </tr>
+                    <tr>
+                        <th>Stukjes</th>
+                        <td><?= $set->pieces ?> stukjes</td>
+                    </tr>
+                    <tr>
+                        <th>Voorraad</th>
+                        <td><?= $set->stock ?> over</td>
+                    </tr>
                 </table>
-
             </div>
         </div>
     </div>
