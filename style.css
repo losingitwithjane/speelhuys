@@ -53,6 +53,12 @@ body {
     font-weight: 600;
 }
 
+.dropdown-item.active,
+.dropdown-item:active {
+    background: var(--teal-700);
+    color: white;
+}
+
 /* Hero sectie */
 .hero {
     background: var(--teal-900);

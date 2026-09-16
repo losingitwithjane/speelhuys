@@ -61,4 +61,16 @@ class Sessie
         $conn->close();
         return $session;
     }
+
+    // functie om de sessie uit de database te verwijderen
+    public function delete()
+    {
+        $conn = Database::start();
+
+        $session_key = mysqli_real_escape_string($conn, $this->session_key);
+        $sql = "DELETE FROM `sessions` WHERE session_key = '$session_key'";
+
+        $conn->query($sql);
+        $conn->close();
+    }
 }

@@ -114,29 +114,7 @@ unset($filterParams['page']);
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-white">
-        <div class="container">
-            <a class="navbar-brand" href="index.php">Speel<span>huys</span></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="productpagina.php">Producten</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
-                    <?php if (isset($_COOKIE["speelhuys-session"])) { ?>
-                        <li class="nav-item"><a class="nav-link" href="admin/admin.php">Admin pagina</a></li>
-                    <?php } ?>
-                </ul>
-                <div class="ms-3">
-                    <?php if (!isset($_COOKIE["speelhuys-session"])) { ?>
-                        <a href="admin/inlog.php" class="btn btn-login">Inloggen</a>
-                    <?php } ?>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <?php $actievePagina = "producten"; include "nav.php"; ?>
 
 
     <!-- Filters -->
