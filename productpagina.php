@@ -270,35 +270,21 @@ unset($filterParams['page']);
     </div>
 
     <?php if ($totalPages > 1): ?>
-        <nav aria-label="Paginering" class="mt-4">
-            <ul class="pagination justify-content-center">
-                <?php if ($page > 1): ?>
-                    <li class="page-item">
-                        <a class="page-link"
-                            href="?<?= http_build_query(array_merge($filterParams, ['page' => $page - 1])) ?>">Vorige</a>
-                    </li>
-                <?php else: ?>
-                    <li class="page-item disabled"><span class="page-link">Vorige</span></li>
-                <?php endif; ?>
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
 
-                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                    <li class="page-item <?= $i == $page ? 'active' : '' ?>">
-                        <a class="page-link"
-                            href="?<?= http_build_query(array_merge($filterParams, ['page' => $i])) ?>"><?= $i ?></a>
-                    </li>
-                <?php endfor; ?>
+            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                <li class="page-item <?= $i == $page ? 'active' : '' ?>">
+                    <a class="page-link"
+                       href="?page=<?= $i ?>">
+                        <?= $i ?>
+                    </a>
+                </li>
+            <?php endfor; ?>
 
-                <?php if ($page < $totalPages): ?>
-                    <li class="page-item">
-                        <a class="page-link"
-                            href="?<?= http_build_query(array_merge($filterParams, ['page' => $page + 1])) ?>">Volgende</a>
-                    </li>
-                <?php else: ?>
-                    <li class="page-item disabled"><span class="page-link">Volgende</span></li>
-                <?php endif; ?>
-            </ul>
-        </nav>
-    <?php endif; ?>
+        </ul>
+    </nav>
+<?php endif; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
