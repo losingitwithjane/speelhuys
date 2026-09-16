@@ -3,7 +3,7 @@ include "../classes/database.php";
 include "../classes/gebruiker.php";
 include "../classes/sessie.php";
 include "../classes/set.php";
-include "../classes/merk.php";
+include "../classes/brand.php";
 include "../classes/theme.php";
 
 $conn = Database::start();
