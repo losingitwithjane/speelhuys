@@ -30,6 +30,7 @@ class Set
         return $set;
     }
 
+    // Geeft een willekeurige set terug die een afbeelding heeft, of null als die er niet is.
     public static function findRandom()
     {
         $conn = Database::start();
@@ -54,6 +55,24 @@ class Set
         }
         $conn->close();
         return $set;
+    }
+
+    public static function countAll()
+    {
+        $conn = Database::start();
+//hoeveel sets zijn er in de database
+        $sql = "SELECT COUNT(*) AS total FROM `sets` WHERE 1";
+        $result = $conn->query($sql);
+
+        $total = 0;
+
+        if ($result && $result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $total = (int) $row['total'];
+        }
+
+        $conn->close();
+        return $total;
     }
 
     public static function findAll()
@@ -86,13 +105,12 @@ class Set
         $conn->close();
         return $sets;
     }
-
+//
     public static function findById($id)
     {
         $conn = Database::start();
 
         $id = mysqli_real_escape_string($conn, $id);
-
         $sql = "SELECT * FROM sets WHERE set_id = " . $id;
         $result = $conn->query($sql);
 
@@ -111,7 +129,7 @@ class Set
                 $set->price = $row["set_price"];
                 $set->age = $row["set_age"];
                 $set->pieces = $row["set_pieces"];
-                $set->stock = $row["set_stock"];
+                $set->stock = $row["set_stock"]; 
             }
         }
         $conn->close();
@@ -157,20 +175,20 @@ class Set
     }
 
     public function insert()
-{
-    $conn = Database::start();
+    {
+        $conn = Database::start();
 
-    $name = mysqli_real_escape_string($conn, $this->name);
-    $description = mysqli_real_escape_string($conn, $this->description);
-    $brandId = mysqli_real_escape_string($conn, $this->brandId);
-    $themeId = mysqli_real_escape_string($conn, $this->themeId);
-    $image = mysqli_real_escape_string($conn, $this->image);
-    $price = mysqli_real_escape_string($conn, $this->price);
-    $age = mysqli_real_escape_string($conn, $this->age);
-    $pieces = mysqli_real_escape_string($conn, $this->pieces);
-    $stock = mysqli_real_escape_string($conn, $this->stock);
+        $name = mysqli_real_escape_string($conn, $this->name);
+        $description = mysqli_real_escape_string($conn, $this->description);
+        $brandId = mysqli_real_escape_string($conn, $this->brandId);
+        $themeId = mysqli_real_escape_string($conn, $this->themeId);
+        $image = mysqli_real_escape_string($conn, $this->image);
+        $price = mysqli_real_escape_string($conn, $this->price);
+        $age = mysqli_real_escape_string($conn, $this->age);
+        $pieces = mysqli_real_escape_string($conn, $this->pieces);
+        $stock = mysqli_real_escape_string($conn, $this->stock);
 
-    $sql = "INSERT INTO sets
+        $sql = "INSERT INTO sets
     (set_name,
     set_image,
     set_description,
@@ -191,12 +209,12 @@ class Set
     '$pieces',
     '$stock')";
 
-    $result = $conn->query($sql);
-    if (!$result) {
-        die("error" . $conn->error);
+        $result = $conn->query($sql);
+        if (!$result) {
+            die("error" . $conn->error);
+        }
+        $conn->close();
     }
-    $conn->close();
-}
 
     public function delete()
     {
