@@ -68,6 +68,8 @@ if (isset($_POST["set_name"]) || isset($_POST["set_description"]) || isset($_POS
 <head>
     <title>Set aanpassen</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/jquery-te-1.4.0.css">
+    <link rel="styleshee" href="../style.css">
 </head>
 <body>
 <div class="container mt-4">
@@ -76,8 +78,11 @@ if (isset($_POST["set_name"]) || isset($_POST["set_description"]) || isset($_POS
         <label>Naam</label>
         <input class="form-control" type="text" name="set_name" value="<?= $set->name ?>" required>
 
-        <label>Beschrijving</label>
-        <textarea class="form-control" name="set_description" rows="4" required><?= $set->description ?></textarea>
+        <div class="mb-3">
+            <label for="description" class="form-label">Beschrijving</label>
+            <textarea class="jqte" name="set_description" id="set_description" rows="5" required><?= $set->description ?></textarea>
+        </div>
+
 
         <label>Brand ID</label>
         <input class="form-control" type="number" name="set_brand_id" value="<?= $set->brandId ?>">
@@ -103,5 +108,13 @@ if (isset($_POST["set_name"]) || isset($_POST["set_description"]) || isset($_POS
         <button class="btn btn-primary mt-3" type="submit">Opslaan</button>
     </form>
 </div>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../js/jquery-te-1.4.0.min.js" charset="utf-8"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $('.jqte').jqte();
+    </script>
+
 </body>
 </html>

@@ -78,6 +78,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../css/jquery-te-1.4.0.css">
+
 </head>
 
 <body>
@@ -99,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="mb-3">
             <label for="description" class="form-label">Beschrijving</label>
-            <textarea class="form-control" name="description" id="description" rows="5" required></textarea>
+            <textarea class="jqte" name="description" id="description" rows="5" required></textarea>
         </div>
 
         <div class="mb-3">
@@ -153,7 +155,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../js/jquery-te-1.4.0.min.js" charset="utf-8"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $('.jqte').jqte();
+    </script>
 </body>
 </html>
