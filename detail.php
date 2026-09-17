@@ -1,6 +1,8 @@
 <?php
 include "classes/database.php";
 include "classes/set.php";
+include "classes/brand.php";
+include "classes/theme.php";
 
 if (!isset($_GET["id"])) {
     header("Location: productpagina.php?message=Geen id meegegeven.");
@@ -9,6 +11,8 @@ if (!isset($_GET["id"])) {
 
 $conn = Database::start();
 $set = Set::findById($_GET["id"]);
+$theme = Theme::findById($set->themeId);
+$brand = Brand::findById($set->brandId);
 
 if ($set == null) {
     echo "Set niet gevonden";
@@ -73,6 +77,14 @@ if ($set == null) {
                     <tr>
                         <th>Voorraad</th>
                         <td><?= $set->stock ?> over</td>
+                    </tr>
+                    <tr>
+                        <th>Merk</th>
+                        <td><?= htmlspecialchars($brand->name) ?></td>
+                    </tr>
+                    <tr>
+                        <th>Thema</th>
+                        <td><?= htmlspecialchars($theme->name) ?></td>
                     </tr>
                 </table>
             </div>

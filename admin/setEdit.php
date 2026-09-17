@@ -3,6 +3,8 @@ include   "../classes/database.php";
 include   "../classes/sessie.php";
 include  "../classes/gebruiker.php";
 include  "../classes/set.php";
+include "../classes/brand.php";
+include "../classes/theme.php";
 
 if (!isset($_GET["id"])) {
     header("Location: ../productpagina.php");
@@ -27,6 +29,10 @@ $userId = $session->session_user_id;
 
 $user = User::findById($userId);
 $set = Set::findById($id);
+$themes = Theme::findAll();
+$brands = Brand::findAll();
+$currentTheme = Theme::findById($set->themeId);
+$currentBrand = Brand::findById($set->brandId);
 
 if ($set == null) {
     header("Location: ../productpagina.php?message=Set niet gevonden.");
@@ -84,11 +90,25 @@ if (isset($_POST["set_name"]) || isset($_POST["set_description"]) || isset($_POS
         </div>
 
 
-        <label>Brand ID</label>
-        <input class="form-control" type="number" name="set_brand_id" value="<?= $set->brandId ?>">
+        <div class="mb-3">
+            <label for="brandId" class="form-label">Merk</label>
+            <select class="form-select" name="set_brand_id" id="brandId" required>
+                <option value=""><?= htmlspecialchars($currentBrand->name) ?></option>
+                <?php foreach ($brands as $brand): ?>
+                    <option value="<?= htmlspecialchars($brand->id) ?>"><?= htmlspecialchars($brand->name) ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
 
-        <label>Thema ID</label>
-        <input class="form-control" type="number" name="set_theme_id" value="<?= $set->themeId ?>">
+        <div class="mb-3">
+            <label for="themeId" class="form-label">Thema</label>
+            <select class="form-select" name="set_theme_id" id="themeId" required>
+                <option value=""><?= htmlspecialchars($currentTheme->name) ?></option>
+                <?php foreach ($themes as $theme): ?>
+                    <option value="<?= htmlspecialchars($theme->id) ?>"><?= htmlspecialchars($theme->name) ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
 
         <label>Afbeelding</label>
         <input class="form-control" type="file" name="bestand">
